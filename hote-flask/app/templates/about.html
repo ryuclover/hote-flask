@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block title %}Serviços - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1>Nossos Serviços</h1>
+        <p>Oferecemos soluções completas para seus eventos</p>
+    </div>
+    
+    <div class="services-grid">
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <h3>Festas de Aniversário</h3>
+            <p>Planejamento completo para festas de aniversário inesquecíveis, desde a decoração até o entretenimento.</p>
+            <ul>
+                <li>Decoração temática</li>
+                <li>Buffet personalizado</li>
+                <li>Animação e entretenimento</li>
+                <li>Fotografia profissional</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Casamentos</h3>
+            <p>Transformamos seu dia especial em um momento mágico e inesquecível para você e seus convidados.</p>
+            <ul>
+                <li>Cerimônia e recepção</li>
+                <li>Decoração floral</li>
+                <li>Música e DJ</li>
+                <li>Coordenação do evento</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Eventos Corporativos</h3>
+            <p>Organizamos eventos empresariais profissionais que fortalecem sua marca e engajam sua equipe.</p>
+            <ul>
+                <li>Conferências e seminários</li>
+                <li>Team building</li>
+                <li>Lançamentos de produtos</li>
+                <li>Networking events</li>
+            </ul>
+        </div>
+        
+        <div class="service-card">
+            <div class="service-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Formaturas</h3>
+            <p>Celebre suas conquistas acadêmicas com uma festa de formatura memorável e elegante.</p>
+            <ul>
+                <li>Cerimônia de colação</li>
+                <li>Festa de confraternização</li>
+                <li>Decoração temática</li>
+                <li>Registro fotográfico</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="cta-section">
+        <h2>Interessado em nossos serviços?</h2>
+        <p>Entre em contato conosco para um orçamento personalizado</p>
+        <a href="{{ url_for('contact') }}" class="btn btn-primary">Solicitar Orçamento</a>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ site_name }} - Realize seu evento dos sonhos{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Realize seu evento dos sonhos</h1>
+        <p>Planejamento, organização e execução de eventos e aniversários com excelência e personalização.</p>
+        <div class="hero-buttons">
+            <a href="{{ url_for('services') }}" class="btn btn-primary">Ver serviços</a>
+            <a href="{{ url_for('contact') }}" class="btn btn-outline">Fale conosco</a>
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='img/hero-image.svg') }}" alt="Ilustração de evento">
+    </div>
+</section>
+
+<section class="features">
+    <h2>Por que escolher nossos serviços?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Planejamento Completo</h3>
+            <p>Cuidamos de todos os detalhes do seu evento, desde a concepção até a execução.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Equipe Especializada</h3>
+            <p>Profissionais experientes e dedicados para garantir o sucesso do seu evento.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>Personalização</h3>
+            <p>Cada evento é único e personalizado de acordo com suas preferências e necessidades.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Momentos Inesquecíveis</h3>
+            <p>Criamos experiências memoráveis que ficarão para sempre na lembrança.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="cta-content">
+        <h2>Pronto para realizar seu evento?</h2>
+        <p>Cadastre-se agora e comece a planejar o evento dos seus sonhos!</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary">Começar agora</a>
+    </div>
+</section>
+{% endblock %}

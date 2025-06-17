@@ -1,0 +1,29 @@
+[default]
+DEBUG = true
+SECRET_KEY = "your_default_secret_key"
+SQLALCHEMY_DATABASE_URI = "sqlite:///events.db"
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+
+SITE_NAME = "Flask App"
+LOGIN_VIEW = "login"
+LOGIN_MESSAGE_CATEGORY = "error"
+
+ADMIN_EMAIL = "admin@example.com"
+ADMIN_PASSWORD = "admin123"
+
+CONTACT_SUCCESS_MESSAGE = "Message sent successfully! We will contact you soon."
+LOGIN_SUCCESS_MESSAGE = "Login successful!"
+LOGIN_ERROR_MESSAGE = "Invalid email or password."
+REGISTER_EMAIL_EXISTS_MESSAGE = "Email already registered."
+REGISTER_PASSWORD_MISMATCH_MESSAGE = "Passwords do not match."
+REGISTER_SUCCESS_MESSAGE = "Registration successful! Please log in."
+
+DEFAULT_EVENT_LOCATION = "Default Location"
+DEFAULT_EVENT_DURATION = 2  # Default duration in hours
+
+MAIL_SERVER = "smtp.example.com"
+MAIL_PORT = 587
+MAIL_USERNAME = "your_email@example.com"
+MAIL_PASSWORD = "your_email_password"
+MAIL_USE_TLS = true
+MAIL_USE_SSL = false

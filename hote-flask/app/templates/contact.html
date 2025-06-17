@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Contato - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="page-container">
+    <div class="page-header">
+        <h1>Entre em Contato</h1>
+        <p>Estamos aqui para ajudar você a realizar o evento dos seus sonhos</p>
+    </div>
+    
+    <div class="contact-content">
+        <div class="contact-info">
+            <h2>Informações de Contato</h2>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Endereço</h3>
+                    <p>Rua dos Eventos, 123<br>São Paulo, SP - 01234-567</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Telefone</h3>
+                    <p>(11) 99999-9999</p>
+                </div>
+            </div>
+            
+            <div class="contact-item">
+                <div class="contact-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <div class="contact-details">
+                    <h3>Email</h3>
+                    <p>contato@nomedosite.com</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="contact-form">
+            <h2>Envie uma Mensagem</h2>
+            
+            <form action="{{ url_for('contact') }}" method="POST">
+                <div class="form-group">
+                    <label for="name">Nome Completo</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Mensagem</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="Descreva seu evento ou dúvida..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Enviar Mensagem</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

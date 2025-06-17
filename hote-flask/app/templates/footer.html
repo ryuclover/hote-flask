@@ -1,0 +1,120 @@
+<footer class="bg-dark text-light py-5 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <h5 class="fw-bold mb-3">
+                    <i class="fas fa-calendar-check me-2"></i>Eventos dos Sonhos
+                </h5>
+                <p class="text-muted">Planejamento, organização e execução de eventos e aniversários com excelência e personalização.</p>
+            </div>
+            <div class="col-md-2">
+                <h6 class="fw-bold mb-3">Links</h6>
+                <ul class="list-unstyled">
+                    <li><a href="{{ url_for('index') }}" class="text-muted text-decoration-none">Início</a></li>
+                    <li><a href="{{ url_for('services') }}" class="text-muted text-decoration-none">Serviços</a></li>
+                    <li><a href="{{ url_for('about') }}" class="text-muted text-decoration-none">Sobre</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="text-muted text-decoration-none">Contato</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="fw-bold mb-3">Serviços</h6>
+                <ul class="list-unstyled">
+                    <li class="text-muted">Planejamento Completo</li>
+                    <li class="text-muted">Equipe Especializada</li>
+                    <li class="text-muted">Personalização</li>
+                    <li class="text-muted">Momentos Inesquecíveis</li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h6 class="fw-bold mb-3">Contato</h6>
+                <p class="text-muted mb-1"><i class="fas fa-envelope me-2"></i>contato@eventossonhos.com</p>
+                <p class="text-muted mb-1"><i class="fas fa-phone me-2"></i>(11) 99999-9999</p>
+                <div class="mt-3">
+                    <a href="#" class="text-muted me-3"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-muted me-3"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <p class="text-muted mb-0">&copy; 2024 Eventos dos Sonhos. Todos os direitos reservados.</p>
+            </div>
+            <div class="col-md-6 text-md-end">
+                <a href="#" class="text-muted text-decoration-none me-3">Política de Privacidade</a>
+                <a href="#" class="text-muted text-decoration-none">Termos de Uso</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .bg-dark {
+        background-color: #333 !important;
+    }
+    .text-light {
+        color: #fff !important;
+    }
+    .text-muted {
+        color: #b0b0b0 !important;
+    }
+    .text-decoration-none {
+        text-decoration: none !important;
+    }
+    .text-decoration-none:hover {
+        text-decoration: underline !important;
+    }
+    .py-5 {
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+    .mt-5 {
+        margin-top: 3rem !important;
+    }
+    .fw-bold {
+        font-weight: 700 !important;
+    }
+    .me-2 {
+        margin-right: 0.5rem !important;
+    }
+    .me-3 {
+        margin-right: 1rem !important;
+    }
+    .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -15px;
+        margin-left: -15px;
+    }
+    .col-md-4, .col-md-2, .col-md-3 {
+        position: relative;
+        width: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+    }
+    @media (min-width: 768px) {
+        .col-md-4 {
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+        }
+        .col-md-2 {
+            flex: 0 0 16.666667%;
+            max-width: 16.666667%;
+        }
+        .col-md-3 {
+            flex: 0 0 25%;
+            max-width: 25%;
+        }
+    }
+    @media (max-width: 767.98px) {
+        .text-md-end {
+            text-align: right !important;
+        }
+    }
+</style>

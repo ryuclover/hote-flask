@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block title %}Meu Perfil - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <div class="profile-header">
+        <a href="{{ url_for('dashboard') }}" class="back-link">
+            <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+        </a>
+        <h1>Meu Perfil</h1>
+        <p>Gerencie suas informações pessoais e configurações de conta</p>
+    </div>
+    
+    <div class="profile-tabs">
+        <div class="tabs-header">
+            <button class="tab-btn active" data-tab="personal-info">Informações Pessoais</button>
+            <button class="tab-btn" data-tab="profile-photo">Foto do Perfil</button>
+            <button class="tab-btn" data-tab="change-password">Alterar Senha</button>
+        </div>
+        
+        <div class="tab-content active" id="personal-info">
+            <div class="profile-card">
+                <div class="profile-avatar">
+                    <div class="avatar-large">
+                        {{ user.first_name[0] }}{{ user.last_name[0] }}
+                    </div>
+                    <div class="profile-info">
+                        <h2>{{ user.first_name }} {{ user.last_name }}</h2>
+                        <p>{{ user.email }}</p>
+                    </div>
+                </div>
+                
+                <form action="{{ url_for('profile') }}" method="POST">
+                    <div class="form-group">
+                        <label for="first_name">Nome</label>
+                        <input type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last_name">Sobrenome</label>
+                        <input type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="{{ user.email }}" disabled>
+                        <small>O email não pode ser alterado.</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Telefone</label>
+                        <input type="tel" id="phone" name="phone" value="{{ user.phone or '' }}" placeholder="(11) 99999-9999">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">Biografia</label>
+                        <textarea id="bio" name="bio" rows="4" placeholder="Conte um pouco sobre você...">{{ user.bio or '' }}</textarea>
+                    </div>
+                    
+                    <div class="account-info">
+                        <h3>Informações da Conta</h3>
+                        <div class="info-item">
+                            <i class="fas fa-envelope"></i>
+                            <span>Email: {{ user.email }}</span>
+                        </div>
+                        <div class="info-item">
+                            <i class="fas fa-calendar"></i>
+                            <span>Membro desde: {{ user.created_at.strftime('%B %Y') }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Salvar Alterações
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="profile-photo">
+            <div class="profile-card">
+                <h2>Foto do Perfil</h2>
+                <p>Atualize sua foto de perfil</p>
+                
+                <div class="avatar-upload">
+                    <div class="avatar-preview">
+                        <div class="avatar-large">
+                            {{ user.first_name[0] }}{{ user.last_name[0] }}
+                        </div>
+                    </div>
+                    <div class="avatar-edit">
+                        <input type="file" id="imageUpload" accept=".png, .jpg, .jpeg">
+                        <label for="imageUpload">Escolher Imagem</label>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-outline">Cancelar</button>
+                    <button type="button" class="btn btn-primary">Salvar Foto</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tab-content" id="change-password">
+            <div class="profile-card">
+                <h2>Alterar Senha</h2>
+                <p>Atualize sua senha de acesso</p>
+                
+                <form action="{{ url_for('change_password') }}" method="POST">
+                    <div class="form-group">
+                        <label for="current_password">Senha Atual</label>
+                        <div class="password-input">
+                            <input type="password" id="current_password" name="current_password" placeholder="Digite sua senha atual" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new_password">Nova Senha</label>
+                        <div class="password-input">
+                            <input type="password" id="new_password" name="new_password" placeholder="Digite sua nova senha" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm_password">Confirmar Nova Senha</label>
+                        <div class="password-input">
+                            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirme sua nova senha" required>
+                            <button type="button" class="toggle-password">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-outline">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Alterar Senha</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

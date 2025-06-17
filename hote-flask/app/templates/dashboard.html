@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - {{ site_name }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</head>
+<body>
+    {% extends 'base.html' %}
+
+    {% block title %}Dashboard - {{ site_name }}{% endblock %}
+
+    {% block content %}
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Bem-vindo, {{ user.first_name }}!</h1>
+            <p>Aqui está um resumo das suas atividades.</p>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Eventos Criados</h3>
+                    <p class="stat-value">{{ created_events_count }}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Eventos Participados</h3>
+                    <p class="stat-value">{{ participating_events_count }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Seus Eventos Criados</h2>
+            {% if created_events %}
+                <ul>
+                    {% for event in created_events %}
+                        <li>
+                            <strong>{{ event.title }}</strong> - {{ event.date.strftime('%Y-%m-%d %H:%M') }}
+                            <br>Local: {{ event.location }}
+                            <br>Participantes: {{ event.participations|length }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Você ainda não criou nenhum evento.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Eventos que Você Participa</h2>
+            {% if participating_events %}
+                <ul>
+                    {% for event in participating_events %}
+                        <li>
+                            <strong>{{ event.title }}</strong> - {{ event.date.strftime('%Y-%m-%d %H:%M') }}
+                            <br>Local: {{ event.location }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Você ainda não participa de nenhum evento.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-input">
+            <form action="{{ url_for('join_event') }}" method="POST">
+                <label for="invite_code">Insira o código de convite:</label>
+                <input type="text" id="invite_code" name="code" placeholder="Digite o código de convite" required>
+                <button type="submit" class="btn btn-primary">Participar</button>
+            </form>
+        </div>
+
+        <div class="dashboard-actions">
+            <a href="{{ url_for('create_event') }}" class="btn btn-primary">Criar Novo Evento</a>
+        </div>
+    </div>
+    {% endblock %}
+</body>
+</html>

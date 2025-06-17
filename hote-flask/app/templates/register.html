@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Crie sua conta - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1>Crie sua conta</h1>
+            <p>Ou <a href="{{ url_for('login') }}">entre na sua conta existente</a></p>
+        </div>
+        
+        <div class="auth-form">
+            <h2>Registro</h2>
+            <p>Preencha os dados abaixo para criar sua conta</p>
+            
+            <form action="{{ url_for('register') }}" method="POST">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="first_name">Nome</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Seu nome" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="last_name">Sobrenome</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Seu sobrenome" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <div class="password-input">
+                        <input type="password" id="password" name="password" placeholder="Crie uma senha segura" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm_password">Confirmar Senha</label>
+                    <div class="password-input">
+                        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirme sua senha" required>
+                        <button type="button" class="toggle-password">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-primary btn-block">Criar conta</button>
+            </form>
+        </div>
+        
+        <div class="auth-footer">
+            <a href="{{ url_for('index') }}" class="back-link">
+                <i class="fas fa-arrow-left"></i> Voltar para o início
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
