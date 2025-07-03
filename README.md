@@ -2,11 +2,17 @@ Hote — Versão de Portfólio (Frontend)
 Esta é uma versão de portfólio contendo apenas o frontend do projeto Hote, uma plataforma web para gerenciamento de eventos.
 
 A versão completa inclui funcionalidades como:
+
 ✅ Autenticação de usuários (registro, login, edição de perfil, alteração de senha)
+
 ✅ CRUD completo de eventos
+
 ✅ Sistema de convites com código único para participação
+
 ✅ Dashboard com visão geral dos eventos e participações
+
 ✅ Tema escuro e layout responsivo
+
 ✅ Páginas institucionais: Serviços, Sobre e Contato
 
 Tecnologias Utilizadas (nesta versão):
