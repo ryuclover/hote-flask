@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ site_name }} - Realize seu evento dos sonhos{% endblock %}
+
+{% block content %}
+<section class="hero" role="banner" aria-label="Seção principal">
+    <div class="container">
+        <div class="hero-content">
+            <h1>Realize <span class="highlight-text">seu evento dos sonhos</span></h1>
+            <p class="hero-subtitle">Planejamento, organização e execução de eventos com excelência e personalização. Transformamos suas ideias em experiências inesquecíveis.</p>
+            <div class="hero-buttons">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-hero" aria-label="Criar novo evento">
+                        <i class="fas fa-plus" aria-hidden="true"></i> Criar Meu Evento Agora
+                    </a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline btn-hero" aria-label="Ver nossos serviços">
+                        <i class="fas fa-star" aria-hidden="true"></i> Ver Nossos Serviços
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-hero" aria-label="Cadastrar gratuitamente">
+                        <i class="fas fa-rocket" aria-hidden="true"></i> Começar Agora - Grátis
+                    </a>
+                    <a href="#services-section" class="btn btn-outline btn-hero scroll-to-services" aria-label="Ver nossos serviços">
+                        <i class="fas fa-eye" aria-hidden="true"></i> Ver Nossos Serviços
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-visual" aria-hidden="true">
+            <div class="hero-decoration">
+                <div class="decoration-element decoration-1" aria-label="Calendário">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="decoration-element decoration-2" aria-label="Coração">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <div class="decoration-element decoration-3" aria-label="Estrela">
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="decoration-element decoration-4" aria-label="Bolo de aniversário">
+                    <i class="fas fa-birthday-cake"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="services-section" id="services-section" role="main" aria-labelledby="services-title">
+    <div class="container">
+        <header class="services-header">
+            <h2 id="services-title" class="section-title">Nossos Serviços</h2>
+            <p class="section-subtitle">Transforme seus momentos especiais em experiências inesquecíveis com nosso planejamento profissional</p>
+            <div class="section-divider" aria-hidden="true"></div>
+        </header>
+    
+        <div class="services-detailed-grid">
+            <!-- Casamentos -->
+            <div class="service-detailed-card" onclick="handleServiceClick('casamento')" data-service="casamento">
+                <div class="service-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Casamentos de Sonho</h3>
+                <p>Criamos cerimônias únicas e recepções inesquecíveis, cuidando de cada detalhe para que seu grande dia seja perfeito.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Planejamento completo do cronograma</li>
+                    <li><i class="fas fa-check"></i> Decoração floral e cenografia</li>
+                    <li><i class="fas fa-check"></i> Coordenação da cerimônia e festa</li>
+                    <li><i class="fas fa-check"></i> Música, DJ e entretenimento</li>
+                    <li><i class="fas fa-check"></i> Buffet gourmet personalizado</li>
+                </ul>
+                <div class="service-action-hint">
+                    <small>👆 Clique para planejar seu casamento dos sonhos</small>
+                </div>
+            </div>
+            
+            <!-- Eventos Corporativos -->
+            <div class="service-detailed-card" onclick="handleServiceClick('corporativo')" data-service="corporativo">
+                <div class="service-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Eventos Corporativos</h3>
+                <p>Eventos empresariais estratégicos que fortalecem sua marca, engajam equipes e impressionam clientes.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Conferências e seminários</li>
+                    <li><i class="fas fa-check"></i> Lançamentos de produtos</li>
+                    <li><i class="fas fa-check"></i> Team building e integração</li>
+                    <li><i class="fas fa-check"></i> Convenções e feiras</li>
+                    <li><i class="fas fa-check"></i> Networking e cocktails</li>
+                </ul>
+                <div class="service-action-hint">
+                    <small>👆 Clique para organizar seu evento corporativo</small>
+                </div>
+            </div>
+            
+            <!-- Festas de Aniversário -->
+            <div class="service-detailed-card" onclick="handleServiceClick('aniversario')" data-service="aniversario">
+                <div class="service-icon">
+                    <i class="fas fa-birthday-cake"></i>
+                </div>
+                <h3>Festas de Aniversário</h3>
+                <p>Celebrações personalizadas que tornam cada aniversário uma data especial e memorável para toda a família.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Decoração temática criativa</li>
+                    <li><i class="fas fa-check"></i> Animação infantil e adulta</li>
+                    <li><i class="fas fa-check"></i> Buffet adaptado à idade</li>
+                    <li><i class="fas fa-check"></i> Bolo personalizado</li>
+                    <li><i class="fas fa-check"></i> Fotografia e filmagem</li>
+                </ul>
+                <div class="service-action-hint">
+                    <small>👆 Clique para criar uma festa única</small>
+                </div>
+            </div>
+            
+            <!-- Formaturas -->
+            <div class="service-detailed-card" onclick="handleServiceClick('formatura')" data-service="formatura">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Formaturas e Diplomações</h3>
+                <p>Celebre suas conquistas acadêmicas com cerimônias elegantes e festas de confraternização memoráveis.</p>
+                <ul class="service-features">
+                    <li><i class="fas fa-check"></i> Cerimônia de colação de grau</li>
+                    <li><i class="fas fa-check"></i> Festa de confraternização</li>
+                    <li><i class="fas fa-check"></i> Decoração acadêmica elegante</li>
+                    <li><i class="fas fa-check"></i> Registro fotográfico oficial</li>
+                    <li><i class="fas fa-check"></i> Coquetel de celebração</li>
+                </ul>
+                <div class="service-action-hint">
+                    <small>👆 Clique para celebrar sua conquista</small>
+                </div>
+            </div>
+        </div>
+        
+        <div class="services-cta">
+            <div class="cta-container">
+                <div class="services-cta-header">
+                    <h2 class="cta-title">Pronto para criar seu evento dos sonhos?</h2>
+                    <p class="cta-description">
+                        {% if current_user.is_authenticated %}
+                            Comece agora mesmo a planejar seu evento personalizado! Nossa plataforma facilita todo o processo.
+                        {% else %}
+                            Junte-se a mais de 1.000 pessoas que já realizaram eventos incríveis conosco. Cadastre-se gratuitamente!
+                        {% endif %}
+                    </p>
+                </div>
+                
+                <div class="services-cta-content">
+                    <div class="cta-buttons">
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-cta">
+                                <i class="fas fa-plus"></i> Criar Meu Evento Agora
+                            </a>
+                            <a href="{{ url_for('dashboard') }}" class="btn btn-outline btn-cta">
+                                <i class="fas fa-tachometer-alt"></i> Ver Meu Dashboard
+                            </a>
+                        {% else %}
+                            <a href="{{ url_for('register') }}" class="btn btn-primary btn-cta">
+                                <i class="fas fa-rocket"></i> Cadastrar Grátis Agora
+                            </a>
+                            <a href="{{ url_for('login') }}" class="btn btn-outline btn-cta">
+                                <i class="fas fa-sign-in-alt"></i> Já Tenho Conta
+                            </a>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="cta-benefits">
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Cadastro gratuito</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Sem compromisso</span>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Comece em 2 minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials-section">
+    <div class="container">
+        <div class="testimonials-header">
+            <h2 class="section-title">O que nossos clientes dizem</h2>
+            <p class="section-subtitle">Confira os depoimentos de quem já realizou eventos incríveis conosco e veja por que somos a escolha certa para o seu próximo evento especial</p>
+            <div class="section-divider"></div>
+        </div>
+    
+    <div class="testimonials-grid">
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Meu casamento foi absolutamente perfeito! A equipe cuidou de cada detalhe com tanto carinho e profissionalismo. Todos os nossos convidados elogiaram a organização e a beleza da decoração. Recomendo de olhos fechados!"</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Ana Carolina Silva</h4>
+                    <span>Casamento • Setembro 2024</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"A festa de 15 anos da minha filha foi um sonho realizado! A decoração temática ficou linda e a animação manteve todos os jovens entretidos. A organização foi impecável do início ao fim. Muito obrigada por tornarem esse dia tão especial!"</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Mariana Costa</h4>
+                    <span>Festa de 15 Anos • Dezembro 2024</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Nosso evento corporativo foi um grande sucesso! A equipe entendeu perfeitamente nossa necessidade de transmitir profissionalismo e inovação. O networking ficou excelente e conseguimos impressionar nossos clientes e parceiros."</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Roberto Oliveira</h4>
+                    <span>Evento Corporativo • Novembro 2024</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"A festa de aniversário de 60 anos do meu pai superou todas as expectativas! A surpresa foi perfeita e cada detalhe foi pensado com muito cuidado. Toda a família ficou emocionada. Vocês são incríveis!"</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Carlos Eduardo Santos</h4>
+                    <span>Aniversário • Janeiro 2025</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Nossa formatura ficou inesquecível! A cerimônia foi emocionante e a festa depois foi perfeita. Conseguiram equilibrar elegância e diversão de uma forma única. Todos os formandos ficaram encantados com o resultado!"</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Fernanda Ribeiro</h4>
+                    <span>Formatura • Dezembro 2024</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonial-card">
+            <div class="testimonial-content">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p>"Já realizamos três eventos com essa equipe e sempre superam nossas expectativas! O atendimento é personalizado, os prazos são cumpridos à risca e a qualidade é excepcional. São nossa primeira opção sempre!"</p>
+            </div>
+            <div class="testimonial-author">
+                <div class="author-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="author-info">
+                    <h4>Juliana Pereira</h4>
+                    <span>Cliente Fidelizada • Múltiplos Eventos</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonials-stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Eventos Realizados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Clientes Satisfeitos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">4.9</div>
+                    <div class="stat-label">Avaliação Média</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Anos de Experiência</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="container">
+        <div class="features-header">
+            <h2 class="section-title">Por que escolher nossos serviços?</h2>
+            <div class="section-divider"></div>
+        </div>
+        
+        <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Planejamento Completo</h3>
+            <p>Cuidamos de todos os detalhes do seu evento, desde a concepção até a execução.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Equipe Especializada</h3>
+            <p>Profissionais experientes e dedicados para garantir o sucesso do seu evento.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>Personalização</h3>
+            <p>Cada evento é único e personalizado de acordo com suas preferências e necessidades.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Momentos Inesquecíveis</h3>
+            <p>Criamos experiências memoráveis que ficarão para sempre na lembrança.</p>
+        </div>
+    </div>
+    </div>
+</section>
+
+<section class="final-cta-section">
+    <div class="container">
+        <div class="final-cta-content">
+            <h2 class="final-cta-title">Pronto para realizar seu evento?</h2>
+            <p class="final-cta-description">
+                {% if current_user.is_authenticated %}
+                    Acesse seu dashboard para gerenciar seus eventos ou crie um novo agora mesmo!
+                {% else %}
+                    Cadastre-se agora e comece a planejar o evento dos seus sonhos com nossa plataforma completa!
+                {% endif %}
+            </p>
+            
+            <div class="final-cta-buttons">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-large">
+                        <i class="fas fa-plus"></i> Criar Novo Evento
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline btn-large">
+                        <i class="fas fa-envelope"></i> Fale Conosco
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary btn-large">
+                        <i class="fas fa-rocket"></i> Começar Agora
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline btn-large">
+                        <i class="fas fa-envelope"></i> Fale Conosco
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<script type="application/json" id="user-data">
+{
+    "isAuthenticated": {% if current_user.is_authenticated %}true{% else %}false{% endif %},
+    "createEventUrl": "{{ url_for('create_event') }}",
+    "registerUrl": "{{ url_for('register') }}"
+}
+</script>
+
+<script>
+// Service Click Handler for Conversion
+function handleServiceClick(serviceType) {
+    const userData = JSON.parse(document.getElementById('user-data').textContent);
+    const isLoggedIn = userData.isAuthenticated;
+    
+    if (isLoggedIn) {
+        // User is logged in - redirect to create event with pre-selected type
+        const params = new URLSearchParams({ type: serviceType });
+        window.location.href = `${userData.createEventUrl}?${params.toString()}`;
+    } else {
+        // User is not logged in - redirect to register with service context
+        const serviceParams = new URLSearchParams({ 
+            service: serviceType,
+            ref: 'homepage_service'
+        });
+        window.location.href = `${userData.registerUrl}?${serviceParams.toString()}`;
+    }
+}
+
+// Smooth scroll for service links
+document.querySelectorAll('.scroll-to-services').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('services-section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+});
+
+// Add visual feedback for service cards
+document.querySelectorAll('.service-detailed-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+    
+    // Add click animation
+    card.addEventListener('click', function() {
+        this.style.transform = 'translateY(-8px) scale(0.98)';
+        setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        }, 150);
+    });
+});
+</script>
+{% endblock %}

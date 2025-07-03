@@ -1,0 +1,1085 @@
+{% extends 'base.html' %}
+
+{% block title %}Criar Evento - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h1><i class="fas fa-calendar-plus"></i> Criar Novo Evento</h1>
+            <p>Preencha os detalhes do seu evento com informações completas</p>
+        </div>
+        
+        <form action="{{ url_for('create_event') }}" method="POST" class="event-form">
+            <!-- Basic Information Section -->
+            <div class="form-section">
+                <h3><i class="fas fa-info-circle"></i> Informações Básicas</h3>
+                
+                <div class="form-group">
+                    <label for="title">Título do Evento *</label>
+                    <input type="text" id="title" name="title" placeholder="Digite o título do evento" required maxlength="100">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Descrição</label>
+                    <textarea id="description" name="description" placeholder="Descreva seu evento em detalhes" rows="4" maxlength="1000"></textarea>
+                    <small class="char-counter">0/1000 caracteres</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="event_type">Tipo de Evento *</label>
+                        <select id="event_type" name="event_type" required>
+                            <option value="">Selecione o tipo</option>
+                            <optgroup label="🎉 Celebrações">
+                                <option value="aniversario">🎂 Festa de Aniversário</option>
+                                <option value="casamento">💒 Casamento</option>
+                                <option value="formatura">🎓 Formatura</option>
+                                <option value="festa">🎉 Festa/Celebração</option>
+                                <option value="batizado">👶 Batizado/Batismo</option>
+                                <option value="cha_bebe">🍼 Chá de Bebê</option>
+                                <option value="cha_panela">🍳 Chá de Panela</option>
+                            </optgroup>
+                            <optgroup label="💼 Profissionais">
+                                <option value="corporativo">💼 Evento Corporativo</option>
+                                <option value="conferencia">� Conferência</option>
+                                <option value="workshop">📚 Workshop/Palestra</option>
+                                <option value="reuniao">👥 Reunião</option>
+                                <option value="networking">🤝 Networking</option>
+                                <option value="treinamento">🎯 Treinamento</option>
+                            </optgroup>
+                            <optgroup label="🎭 Culturais e Entretenimento">
+                                <option value="cultural">� Evento Cultural</option>
+                                <option value="esportivo">⚽ Evento Esportivo</option>
+                                <option value="musical">� Show/Evento Musical</option>
+                                <option value="exposicao">🖼️ Exposição</option>
+                                <option value="teatro">🎪 Teatro/Espetáculo</option>
+                            </optgroup>
+                            <optgroup label="🙏 Sociais e Comunitários">
+                                <option value="religioso">⛪ Evento Religioso</option>
+                                <option value="beneficente">💝 Evento Beneficente</option>
+                                <option value="comunitario">🏘️ Comunitário</option>
+                                <option value="voluntariado">🤲 Voluntariado</option>
+                            </optgroup>
+                            <optgroup label="📚 Educacionais">
+                                <option value="academico">🎓 Evento Acadêmico</option>
+                                <option value="seminario">📊 Seminário</option>
+                                <option value="curso">📖 Curso</option>
+                                <option value="palestra">🗣️ Palestra</option>
+                            </optgroup>
+                            <optgroup label="🏥 Saúde e Bem-estar">
+                                <option value="saude">🏥 Saúde</option>
+                                <option value="fitness">💪 Fitness/Esportes</option>
+                                <option value="yoga">🧘 Yoga/Meditação</option>
+                            </optgroup>
+                            <optgroup label="🍽️ Gastronômicos">
+                                <option value="gastronomico">🍽️ Gastronômico</option>
+                                <option value="degustacao">🍷 Degustação</option>
+                                <option value="food_truck">🚚 Food Truck</option>
+                            </optgroup>
+                            <optgroup label="🎨 Criativos">
+                                <option value="artesanato">🎨 Artesanato</option>
+                                <option value="fotografia">📸 Fotografia</option>
+                                <option value="moda">👗 Moda</option>
+                            </optgroup>
+                            <option value="other">📋 Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="category">Categoria</label>
+                        <select id="category" name="category">
+                            <option value="">Selecione uma categoria</option>
+                            <optgroup label="👔 Formalidade">
+                                <option value="formal">👔 Formal</option>
+                                <option value="semi_formal">🤵 Semi-formal</option>
+                                <option value="informal">👕 Informal</option>
+                                <option value="casual">👖 Casual</option>
+                            </optgroup>
+                            <optgroup label="👨‍👩‍👧‍👦 Público-alvo">
+                                <option value="infantil">👶 Infantil</option>
+                                <option value="adolescente">🧑‍🎓 Adolescente</option>
+                                <option value="adulto">👨‍💼 Adulto</option>
+                                <option value="melhor_idade">👴 Melhor Idade</option>
+                                <option value="familiar">👨‍👩‍👧‍👦 Familiar</option>
+                                <option value="profissional">💼 Profissional</option>
+                            </optgroup>
+                            <optgroup label="🌟 Estilo">
+                                <option value="elegante">✨ Elegante</option>
+                                <option value="moderno">🚀 Moderno</option>
+                                <option value="tradicional">🏛️ Tradicional</option>
+                                <option value="tematico">🎭 Temático</option>
+                                <option value="rustico">🌾 Rústico</option>
+                                <option value="minimalista">⚪ Minimalista</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Theme and Decoration -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="theme">Tema do Evento</label>
+                        <input type="text" id="theme" name="theme" placeholder="Ex: Tropical, Vintage, Anos 80..." maxlength="50">
+                        <small>Descreva o tema ou decoração planejada</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="dress_code">Código de Vestimenta</label>
+                        <select id="dress_code" name="dress_code">
+                            <option value="">Não especificado</option>
+                            <option value="formal">👔 Formal (terno/vestido longo)</option>
+                            <option value="cocktail">🍸 Cocktail (traje social)</option>
+                            <option value="casual_elegante">👗 Casual Elegante</option>
+                            <option value="casual">👕 Casual</option>
+                            <option value="esportivo">👟 Esportivo</option>
+                            <option value="tematico">🎭 Temático</option>
+                            <option value="tradicional">🏛️ Tradicional</option>
+                            <option value="praia">🏖️ Praia/Verão</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date and Location Section -->
+            <div class="form-section">
+                <h3><i class="fas fa-calendar-alt"></i> Data e Local</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Data e Hora de Início *</label>
+                        <input type="datetime-local" id="date" name="date" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="end_date">Data e Hora de Término</label>
+                        <input type="datetime-local" id="end_date" name="end_date">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Local do Evento *</label>
+                    <input type="text" id="location" name="location" placeholder="Endereço completo do evento" required maxlength="200">
+                </div>
+
+                <!-- Location Details -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="venue_type">Tipo de Local</label>
+                        <select id="venue_type" name="venue_type">
+                            <option value="">Selecione o tipo de local</option>
+                            <optgroup label="🏢 Espaços Comerciais">
+                                <option value="salao_festa">🎪 Salão de Festas</option>
+                                <option value="hotel">🏨 Hotel</option>
+                                <option value="restaurante">🍽️ Restaurante</option>
+                                <option value="buffet">🍰 Buffet</option>
+                                <option value="centro_eventos">🏛️ Centro de Eventos</option>
+                                <option value="clube">🎾 Clube</option>
+                            </optgroup>
+                            <optgroup label="🏡 Espaços Residenciais">
+                                <option value="casa">🏠 Casa</option>
+                                <option value="apartamento">🏢 Apartamento</option>
+                                <option value="chacara">🌿 Chácara</option>
+                                <option value="sitio">🏞️ Sítio</option>
+                                <option value="quintal">🌳 Quintal</option>
+                            </optgroup>
+                            <optgroup label="🌲 Espaços Externos">
+                                <option value="parque">🌳 Parque</option>
+                                <option value="praia">🏖️ Praia</option>
+                                <option value="jardim">🌸 Jardim</option>
+                                <option value="area_rural">🚜 Área Rural</option>
+                                <option value="camping">⛺ Camping</option>
+                            </optgroup>
+                            <optgroup label="🏢 Espaços Institucionais">
+                                <option value="escola">🏫 Escola</option>
+                                <option value="igreja">⛪ Igreja</option>
+                                <option value="biblioteca">📚 Biblioteca</option>
+                                <option value="teatro">🎭 Teatro</option>
+                                <option value="auditorio">🎤 Auditório</option>
+                            </optgroup>
+                            <optgroup label="💻 Virtual">
+                                <option value="online">💻 Online/Virtual</option>
+                                <option value="hibrido">🔄 Híbrido</option>
+                            </optgroup>
+                            <option value="outro">📍 Outro</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="accessibility">Acessibilidade</label>
+                        <select id="accessibility" name="accessibility">
+                            <option value="">Não informado</option>
+                            <option value="total">♿ Totalmente acessível</option>
+                            <option value="parcial">🚶 Parcialmente acessível</option>
+                            <option value="nenhuma">❌ Sem acessibilidade</option>
+                        </select>
+                        <small>Importante para pessoas com mobilidade reduzida</small>
+                    </div>
+                </div>
+
+                <!-- Additional Location Info -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="parking">Estacionamento</label>
+                        <select id="parking" name="parking">
+                            <option value="">Não informado</option>
+                            <option value="gratuito">🅿️ Gratuito</option>
+                            <option value="pago">💳 Pago</option>
+                            <option value="valet">🚗 Valet</option>
+                            <option value="limitado">⚠️ Limitado</option>
+                            <option value="nenhum">❌ Sem estacionamento</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="public_transport">Transporte Público</label>
+                        <input type="text" id="public_transport" name="public_transport" placeholder="Ex: Metrô Linha Azul, Ônibus 123..." maxlength="100">
+                        <small>Como chegar usando transporte público</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participants and Settings Section -->
+            <div class="form-section">
+                <h3><i class="fas fa-users"></i> Participantes e Configurações</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="capacity">Capacidade Máxima</label>
+                        <input type="number" id="capacity" name="capacity" placeholder="Número máximo de participantes" min="1" max="10000">
+                        <small>Deixe em branco se não houver limite</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="min_age">Idade Mínima</label>
+                        <input type="number" id="min_age" name="min_age" placeholder="Ex: 18" min="0" max="100">
+                        <small>Deixe em branco se não houver restrição</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="price">Preço (R$)</label>
+                        <input type="number" id="price" name="price" placeholder="0.00" step="0.01" min="0">
+                        <small>Digite 0.00 para eventos gratuitos</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="payment_methods">Formas de Pagamento</label>
+                        <input type="text" id="payment_methods" name="payment_methods" placeholder="Ex: PIX, Cartão, Dinheiro..." maxlength="100">
+                        <small>Como os participantes podem pagar</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="is_public" name="is_public" checked>
+                            <span class="checkmark"></span>
+                            Evento Público
+                        </label>
+                        <small>Eventos públicos aparecem em pesquisas</small>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="requires_approval" name="requires_approval">
+                            <span class="checkmark"></span>
+                            Requer Aprovação
+                        </label>
+                        <small>Você aprovará cada participação</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="allow_guests" name="allow_guests">
+                            <span class="checkmark"></span>
+                            Permitir Acompanhantes
+                        </label>
+                        <small>Participantes podem trazer convidados</small>
+                    </div>
+                    
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="photography_allowed" name="photography_allowed" checked>
+                            <span class="checkmark"></span>
+                            Fotos Permitidas
+                        </label>
+                        <small>Autorizar fotos durante o evento</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Information Section -->
+            <div class="form-section">
+                <h3><i class="fas fa-address-book"></i> Informações de Contato</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contact_email">Email de Contato *</label>
+                        <input type="email" id="contact_email" name="contact_email" value="{{ user.email }}" placeholder="email@exemplo.com" required>
+                        <small>Email principal para dúvidas sobre o evento</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contact_phone">Telefone de Contato</label>
+                        <input type="tel" id="contact_phone" name="contact_phone" placeholder="(11) 99999-9999" maxlength="20">
+                        <small>WhatsApp ou telefone para contato</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="contact_name">Nome do Responsável</label>
+                        <input type="text" id="contact_name" name="contact_name" value="{{ user.first_name }} {{ user.last_name }}" placeholder="Nome completo" maxlength="100">
+                        <small>Pessoa responsável pelo evento</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="emergency_contact">Contato de Emergência</label>
+                        <input type="tel" id="emergency_contact" name="emergency_contact" placeholder="(11) 99999-9999" maxlength="20">
+                        <small>Contato alternativo para emergências</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="social_media">Redes Sociais</label>
+                        <input type="url" id="social_media" name="social_media" placeholder="Instagram, Facebook, etc." maxlength="200">
+                        <small>Link para página/perfil do evento</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="website">Site do Evento</label>
+                        <input type="url" id="website" name="website" placeholder="https://exemplo.com" maxlength="200">
+                        <small>Site oficial ou página de inscrições</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Information Section -->
+            <div class="form-section">
+                <h3><i class="fas fa-clipboard-list"></i> Informações Adicionais</h3>
+                
+                <div class="form-group">
+                    <label for="special_requirements">Requisitos e Orientações Especiais</label>
+                    <textarea id="special_requirements" name="special_requirements" placeholder="Ex: Dress code, itens necessários, restrições alimentares, documentos obrigatórios..." rows="4" maxlength="500"></textarea>
+                    <small class="char-counter">0/500 caracteres</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="food_service">Serviço de Alimentação</label>
+                        <select id="food_service" name="food_service">
+                            <option value="">Não informado</option>
+                            <option value="completo">🍽️ Refeição Completa</option>
+                            <option value="lanche">🥪 Lanche/Coffee Break</option>
+                            <option value="buffet">🍰 Buffet</option>
+                            <option value="bebidas">🥤 Apenas Bebidas</option>
+                            <option value="cada_um">💰 Cada um paga o seu</option>
+                            <option value="nenhum">❌ Sem alimentação</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="activities">Atividades Planejadas</label>
+                        <input type="text" id="activities" name="activities" placeholder="Ex: Música ao vivo, Jogos, Dança..." maxlength="200">
+                        <small>Principais atrações do evento</small>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="materials_needed">Materiais Necessários</label>
+                        <input type="text" id="materials_needed" name="materials_needed" placeholder="Ex: Notebook, Material esportivo..." maxlength="200">
+                        <small>O que os participantes devem trazer</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="weather_plan">Plano Alternativo (Chuva)</label>
+                        <input type="text" id="weather_plan" name="weather_plan" placeholder="Local alternativo em caso de chuva..." maxlength="100">
+                        <small>Para eventos externos</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="invite_code">Código de Convite *</label>
+                    <div class="code-input">
+                        <input type="text" id="invite_code" name="invite_code" placeholder="Ex: FESTA2025" required maxlength="10" pattern="[A-Za-z0-9]{3,10}">
+                        <button type="button" class="btn-icon generate-code" title="Gerar código automaticamente">
+                            <i class="fas fa-random"></i>
+                        </button>
+                    </div>
+                    <small>Este código será usado para convidar participantes (3-10 caracteres)</small>
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <a href="{{ url_for('dashboard') }}" class="btn btn-outline">
+                    <i class="fas fa-times"></i> Cancelar
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-calendar-plus"></i> Criar Evento
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<style>
+/* Enhanced Event Form Styles */
+.event-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-section {
+    background: var(--card-bg);
+    border: 1px solid var(--cor-borda);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.form-section h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-section h3 i {
+    width: 20px;
+    text-align: center;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 0.25rem 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    accent-color: var(--cor-primaria);
+}
+
+.checkbox-label small {
+    margin-left: 1.5rem;
+    color: var(--text-muted);
+    font-weight: normal;
+    font-size: 0.85rem;
+}
+
+.checkmark {
+    display: inline-block;
+}
+
+.char-counter {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-align: right;
+    display: block;
+    margin-top: 0.25rem;
+}
+
+.char-counter.warning {
+    color: var(--cor-secundaria);
+}
+
+.char-counter.danger {
+    color: var(--danger-color);
+}
+
+.code-input {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.code-input input {
+    flex: 1;
+}
+
+.generate-code {
+    background: var(--cor-primaria);
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 45px;
+}
+
+.generate-code:hover {
+    background: var(--cor-secundaria);
+    transform: scale(1.02);
+}
+
+/* Enhanced form inputs */
+input, select, textarea {
+    border: 2px solid var(--cor-borda);
+    transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+    border-color: var(--cor-primaria);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(140, 47, 38, 0.1);
+}
+
+/* Select styling improvements */
+select {
+    cursor: pointer;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%238c2f26' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 0.7rem center;
+    background-size: 0.65rem auto;
+    padding-right: 2.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* Optgroup styling */
+optgroup {
+    font-weight: bold;
+    color: var(--cor-primaria);
+    font-style: normal;
+}
+
+optgroup option {
+    font-weight: normal;
+    color: var(--cor-texto);
+    padding-left: 1rem;
+}
+
+/* Form actions */
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--cor-borda);
+}
+
+.form-actions .btn {
+    min-width: 140px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Form validation styles */
+.form-group.error input,
+.form-group.error select,
+.form-group.error textarea {
+    border-color: var(--danger-color);
+    background-color: rgba(220, 53, 69, 0.05);
+}
+
+.form-group.success input,
+.form-group.success select,
+.form-group.success textarea {
+    border-color: #28a745;
+}
+
+/* Loading state */
+.form-section.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.form-section.loading::after {
+    content: "Carregando...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--card-bg);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    color: var(--cor-primaria);
+    font-weight: 600;
+}
+
+/* Dark theme adjustments */
+body.dark-theme .form-section {
+    background: var(--cor-input);
+    border-color: var(--cor-borda);
+}
+
+body.dark-theme .form-section h3 {
+    color: var(--cor-primaria);
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+    
+    .form-section {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .form-section h3 {
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .code-input {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+    
+    .generate-code {
+        width: 100%;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .form-actions .btn {
+        width: 100%;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    
+    /* Improve select dropdowns on mobile */
+    select {
+        font-size: 16px; /* Prevents zoom on iOS */
+        -webkit-appearance: none;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'><path fill='%23666' d='M2 0L0 2h4zm0 5L0 3h4z'/></svg>");
+        background-repeat: no-repeat;
+        background-position: right 0.7rem center;
+        background-size: 0.65rem auto;
+        padding-right: 2.5rem;
+    }
+    
+    /* Better spacing for checkbox groups on mobile */
+    .checkbox-group {
+        margin-bottom: 1rem;
+    }
+    
+    .checkbox-label {
+        padding: 0.5rem 0;
+    }
+    
+    /* Improve character counter visibility */
+    .char-counter {
+        font-size: 0.8rem;
+        margin-top: 0.25rem;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    
+    .form-section {
+        padding: 1.25rem;
+    }
+    
+    .form-container {
+        max-width: 90%;
+    }
+    
+    /* Three-column layout for some sections on tablet */
+    .form-row.three-col {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    /* Stack checkboxes vertically on tablet for better readability */
+    .checkbox-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .form-container {
+        max-width: 900px;
+    }
+    
+    .form-section {
+        padding: 1.75rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+    
+    /* Three-column layout for certain fields on desktop */
+    .form-row.three-col {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    /* Four-column layout for small fields */
+    .form-row.four-col {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    /* Large fields span full width */
+    .form-group.full-width {
+        grid-column: 1 / -1;
+    }
+    
+    /* Better hover effects on desktop */
+    .form-section:hover {
+        border-color: var(--cor-primaria);
+        box-shadow: 0 4px 16px 0 rgba(140,47,38,0.1);
+        transition: all 0.3s ease;
+    }
+    
+    .generate-code:hover {
+        transform: scale(1.05);
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Character counter for textareas
+    const textareas = document.querySelectorAll('textarea[maxlength]');
+    textareas.forEach(textarea => {
+        const counter = textarea.nextElementSibling;
+        if (counter && counter.classList.contains('char-counter')) {
+            const maxLength = textarea.getAttribute('maxlength');
+            
+            function updateCounter() {
+                const currentLength = textarea.value.length;
+                counter.textContent = `${currentLength}/${maxLength} caracteres`;
+                
+                if (currentLength > maxLength * 0.9) {
+                    counter.style.color = 'var(--danger-color)';
+                } else if (currentLength > maxLength * 0.7) {
+                    counter.style.color = 'var(--cor-secundaria)';
+                } else {
+                    counter.style.color = 'var(--text-muted)';
+                }
+            }
+            
+            textarea.addEventListener('input', updateCounter);
+            updateCounter();
+        }
+    });
+
+    // Set minimum date to current date and time
+    const dateInput = document.getElementById('date');
+    const endDateInput = document.getElementById('end_date');
+    if (dateInput) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        
+        const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+        dateInput.min = minDateTime;
+        
+        // Set end date minimum when start date changes
+        dateInput.addEventListener('change', function() {
+            if (endDateInput && this.value) {
+                endDateInput.min = this.value;
+                if (endDateInput.value && endDateInput.value < this.value) {
+                    endDateInput.value = '';
+                }
+            }
+        });
+    }
+
+    // Enhanced phone number formatting
+    const phoneInputs = document.querySelectorAll('input[type="tel"]');
+    phoneInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            let value = this.value.replace(/\D/g, '');
+            if (value.length >= 10) {
+                value = value.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length >= 6) {
+                value = value.replace(/(\d{2})(\d{4})/, '($1) $2-');
+            } else if (value.length >= 2) {
+                value = value.replace(/(\d{2})/, '($1) ');
+            }
+            this.value = value;
+        });
+    });
+
+    // Generate invite code with more sophisticated logic
+    const generateCodeBtn = document.querySelector('.generate-code');
+    const inviteCodeInput = document.getElementById('invite_code');
+    
+    if (generateCodeBtn && inviteCodeInput) {
+        generateCodeBtn.addEventListener('click', function() {
+            const eventType = document.getElementById('event_type').value;
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let prefix = '';
+            
+            // Add prefix based on event type
+            if (eventType === 'aniversario') prefix = 'ANIV';
+            else if (eventType === 'casamento') prefix = 'CASA';
+            else if (eventType === 'corporativo') prefix = 'CORP';
+            else if (eventType === 'festa') prefix = 'FEST';
+            else prefix = 'EVT';
+            
+            let code = prefix;
+            for (let i = 0; i < 4; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            inviteCodeInput.value = code;
+        });
+    }
+
+    // Dynamic form interactions
+    const eventTypeSelect = document.getElementById('event_type');
+    const categorySelect = document.getElementById('category');
+    const venueTypeSelect = document.getElementById('venue_type');
+    const priceInput = document.getElementById('price');
+    const paymentMethodsInput = document.getElementById('payment_methods');
+
+    // Auto-suggest categories based on event type
+    if (eventTypeSelect && categorySelect) {
+        eventTypeSelect.addEventListener('change', function() {
+            const eventType = this.value;
+            categorySelect.innerHTML = '<option value="">Selecione uma categoria</option>';
+            
+            let categories = [];
+            if (['aniversario', 'festa', 'casamento'].includes(eventType)) {
+                categories = [
+                    { value: 'formal', text: '👔 Formal' },
+                    { value: 'semi_formal', text: '🤵 Semi-formal' },
+                    { value: 'informal', text: '👕 Informal' },
+                    { value: 'familiar', text: '👨‍👩‍👧‍👦 Familiar' },
+                    { value: 'elegante', text: '✨ Elegante' }
+                ];
+            } else if (['corporativo', 'conferencia', 'workshop'].includes(eventType)) {
+                categories = [
+                    { value: 'profissional', text: '💼 Profissional' },
+                    { value: 'formal', text: '👔 Formal' },
+                    { value: 'networking', text: '🤝 Networking' }
+                ];
+            } else if (['cultural', 'musical', 'exposicao'].includes(eventType)) {
+                categories = [
+                    { value: 'cultural', text: '🎭 Cultural' },
+                    { value: 'artistico', text: '🎨 Artístico' },
+                    { value: 'educativo', text: '📚 Educativo' }
+                ];
+            }
+            
+            categories.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.value;
+                option.textContent = cat.text;
+                categorySelect.appendChild(option);
+            });
+        });
+    }
+
+    // Show/hide payment methods based on price
+    if (priceInput && paymentMethodsInput) {
+        priceInput.addEventListener('input', function() {
+            const price = parseFloat(this.value) || 0;
+            const paymentGroup = paymentMethodsInput.closest('.form-group');
+            
+            if (price > 0) {
+                paymentGroup.style.display = 'block';
+                paymentMethodsInput.placeholder = 'PIX, Cartão, Dinheiro...';
+            } else {
+                paymentGroup.style.display = 'none';
+                paymentMethodsInput.value = '';
+            }
+        });
+    }
+
+    // Accessibility checker
+    const accessibilitySelect = document.getElementById('accessibility');
+    const capacityInput = document.getElementById('capacity');
+    
+    if (accessibilitySelect && capacityInput) {
+        capacityInput.addEventListener('input', function() {
+            const capacity = parseInt(this.value) || 0;
+            if (capacity > 100 && !accessibilitySelect.value) {
+                accessibilitySelect.style.borderColor = 'orange';
+                const warning = document.createElement('small');
+                warning.textContent = 'Considere informar sobre acessibilidade para eventos grandes';
+                warning.style.color = 'orange';
+                if (!accessibilitySelect.nextElementSibling || !accessibilitySelect.nextElementSibling.textContent.includes('acessibilidade')) {
+                    accessibilitySelect.parentNode.appendChild(warning);
+                }
+            }
+        });
+    }
+
+    // Enhanced form validation
+    const form = document.querySelector('.event-form');
+    if (form) {
+        // Real-time validation
+        const inputs = form.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+        });
+
+        function validateField(field) {
+            const group = field.closest('.form-group');
+            group.classList.remove('error', 'success');
+            
+            if (field.hasAttribute('required') && !field.value.trim()) {
+                group.classList.add('error');
+                return false;
+            }
+            
+            // Email validation
+            if (field.type === 'email' && field.value) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value)) {
+                    group.classList.add('error');
+                    return false;
+                }
+            }
+            
+            // URL validation
+            if (field.type === 'url' && field.value) {
+                try {
+                    new URL(field.value);
+                } catch {
+                    group.classList.add('error');
+                    return false;
+                }
+            }
+            
+            // Invite code validation
+            if (field.name === 'invite_code' && field.value) {
+                if (!/^[A-Za-z0-9]{3,10}$/.test(field.value)) {
+                    group.classList.add('error');
+                    return false;
+                }
+            }
+            
+            if (field.value) {
+                group.classList.add('success');
+            }
+            return true;
+        }
+
+        form.addEventListener('submit', function(e) {
+            let isValid = true;
+            const requiredFields = form.querySelectorAll('[required]');
+            
+            requiredFields.forEach(field => {
+                if (!validateField(field)) {
+                    isValid = false;
+                }
+            });
+            
+            // Validate date range
+            if (dateInput.value && endDateInput.value) {
+                if (new Date(endDateInput.value) <= new Date(dateInput.value)) {
+                    alert('A data de término deve ser posterior à data de início.');
+                    e.preventDefault();
+                    return;
+                }
+            }
+            
+            // Check capacity vs minimum age logic
+            const minAge = document.getElementById('min_age').value;
+            const eventType = document.getElementById('event_type').value;
+            if (minAge && parseInt(minAge) < 16 && eventType === 'corporativo') {
+                if (!confirm('Evento corporativo com idade mínima baixa. Confirmar?')) {
+                    e.preventDefault();
+                    return;
+                }
+            }
+            
+            if (!isValid) {
+                e.preventDefault();
+                alert('Por favor, corrija os campos destacados em vermelho.');
+                // Scroll to first error
+                const firstError = form.querySelector('.form-group.error');
+                if (firstError) {
+                    firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Criando evento...';
+                submitBtn.disabled = true;
+            }
+        });
+    }
+
+    // Auto-save draft (localStorage)
+    const formInputs = form.querySelectorAll('input, select, textarea');
+    formInputs.forEach(input => {
+        // Load saved data
+        const savedValue = localStorage.getItem(`event_draft_${input.name}`);
+        if (savedValue && !input.value) {
+            input.value = savedValue;
+        }
+        
+        // Save on change
+        input.addEventListener('input', function() {
+            localStorage.setItem(`event_draft_${input.name}`, input.value);
+        });
+    });
+
+    // Clear draft on successful submission
+    form.addEventListener('submit', function() {
+        formInputs.forEach(input => {
+            localStorage.removeItem(`event_draft_${input.name}`);
+        });
+    });
+});
+</script>
+{% endblock %}

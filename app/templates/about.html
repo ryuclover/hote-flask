@@ -1,0 +1,601 @@
+{% extends 'base.html' %}
+
+{% block title %}Sobre Nós - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="about-page">
+    <!-- Hero Section -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>Sobre Nós</h1>
+            <p class="hero-subtitle">Conectando pessoas através de eventos memoráveis</p>
+        </div>
+    </section>
+
+
+
+    <!-- Mission Section -->
+    <section class="about-mission">
+        <div class="container">
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Nossa Missão</h3>
+                    <p>Facilitar a organização de eventos memoráveis, oferecendo ferramentas intuitivas e suporte completo para que cada celebração seja especial e bem-sucedida.</p>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-icon">👁️</div>
+                    <h3>Nossa Visão</h3>
+                    <p>Ser a plataforma de referência em organização de eventos, conectando pessoas através de experiências únicas e momentos inesquecíveis.</p>
+                </div>
+                
+                <div class="mission-card">
+                    <div class="mission-icon">💝</div>
+                    <h3>Nossos Valores</h3>
+                    <p>Excelência, inovação, transparência e dedicação total à satisfação dos nossos usuários e ao sucesso de cada evento organizado.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="about-features">
+        <div class="container">
+            <h2>Por que escolher nossa plataforma?</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <div class="feature-icon">🚀</div>
+                    <h4>Facilidade de Uso</h4>
+                    <p>Interface intuitiva que permite criar e gerenciar eventos em poucos cliques</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🎨</div>
+                    <h4>Personalização</h4>
+                    <p>Opções completas de customização para cada tipo de evento</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📱</div>
+                    <h4>Multiplataforma</h4>
+                    <p>Acesse de qualquer dispositivo - computador, tablet ou smartphone</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Segurança</h4>
+                    <p>Seus dados e eventos protegidos com a mais alta segurança</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">💬</div>
+                    <h4>Área do Convidado</h4>
+                    <p>Espaço exclusivo para convidados deixarem mensagens e interagirem</p>
+                </div>
+                
+                <div class="feature-item">
+                    <div class="feature-icon">📊</div>
+                    <h4>Relatórios</h4>
+                    <p>Acompanhe todas as métricas e dados do seu evento em tempo real</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="about-stats">
+        <div class="container">
+            <h2>Nossos Números</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Eventos Organizados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">2000+</div>
+                    <div class="stat-label">Usuários Ativos</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50000+</div>
+                    <div class="stat-label">Convidados Gerenciados</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Satisfação</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="about-team">
+        <div class="container">
+            <h2>Nossa Equipe</h2>
+            <p class="team-intro">Uma equipe apaixonada por tecnologia e eventos, dedicada a oferecer a melhor experiência para nossos usuários.</p>
+            
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">👩‍💼</div>
+                    <h4></h4>
+                    <p class="member-role">xxxx</p>
+                    <p class="member-bio">xxx.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h4></h4>
+                    <p class="member-role">xxx</p>
+                    <p class="member-bio">xxxx.</p>
+                </div>
+                
+                <div class="team-member">
+                    <div class="member-avatar">👨‍💻</div>
+                    <h4></h4>
+                    <p class="member-role">xxxx</p>
+                    <p class="member-bio">xxx.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="about-cta">
+        <div class="container">
+            <h2>Pronto para criar seu próximo evento?</h2>
+            <p>Junte-se a milhares de pessoas que já confiam na nossa plataforma</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-large">Criar Evento</a>
+                {% if not user %}
+                    <a href="{{ url_for('register') }}" class="btn btn-secondary btn-large">Cadastrar-se</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.about-page {
+    background-color: #f8f9fa;
+}
+
+.about-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.about-hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.about-story {
+    padding: 4rem 0;
+    background: white;
+}
+
+.story-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.story-text h2 {
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.story-text p {
+    color: #34495e;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.image-placeholder {
+    background: #f8f9fa;
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    font-size: 3rem;
+    border: 2px dashed #ddd;
+}
+
+.about-mission {
+    padding: 4rem 0;
+    background: #f8f9fa;
+}
+
+.mission-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.mission-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.mission-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.mission-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.mission-card p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.about-features {
+    padding: 4rem 0;
+    background: white;
+}
+
+.about-features h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-item {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.feature-item h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.feature-item p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.about-stats {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+}
+
+.about-stats h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+}
+
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 3rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+.about-team {
+    padding: 4rem 0;
+    background: white;
+}
+
+.about-team h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.team-intro {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 3rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.team-member {
+    text-align: center;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 15px;
+}
+
+.member-avatar {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.team-member h4 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: #3498db;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.member-bio {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.about-cta {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    text-align: center;
+}
+
+.about-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.about-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.btn-primary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #34495e;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #2c3e50;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .about-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .story-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .story-text h2 {
+        font-size: 2rem;
+    }
+    
+    .about-features h2,
+    .about-stats h2,
+    .about-team h2,
+    .about-cta h2 {
+        font-size: 2rem;
+    }
+    
+    .stat-number {
+        font-size: 2rem;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .about-page {
+    background-color: var(--cor-fundo);
+}
+
+body.dark-theme .about-hero {
+    background: linear-gradient(135deg, var(--cor-escuro) 0%, var(--cor-fundo) 100%);
+}
+
+body.dark-theme .about-story {
+    background: var(--cor-fundo-alternativo);
+}
+
+body.dark-theme .story-text h2 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .story-text p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .image-placeholder {
+    background: var(--cor-fundo);
+    border-color: var(--border-color);
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .about-mission {
+    background: var(--cor-fundo);
+}
+
+body.dark-theme .mission-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .mission-card h3 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .mission-card p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .about-features {
+    background: var(--cor-fundo-alternativo);
+}
+
+body.dark-theme .about-features h2 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .feature-item {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .feature-item h4 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .feature-item p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .about-stats {
+    background: var(--cor-fundo);
+}
+
+body.dark-theme .about-stats h2 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .stats-grid {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .stat-item h3 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .stat-item p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .about-team {
+    background: var(--cor-fundo-alternativo);
+}
+
+body.dark-theme .about-team h2 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .team-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .team-card h4 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .team-card p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .about-cta {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+}
+
+body.dark-theme .btn-primary {
+    background: var(--cor-primaria);
+    color: var(--cor-claro);
+}
+
+body.dark-theme .btn-primary:hover {
+    background: var(--cor-hover);
+}
+
+body.dark-theme .btn-secondary {
+    background: var(--cor-fundo-alternativo);
+    color: var(--cor-texto);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .btn-secondary:hover {
+    background: var(--cor-primaria);
+    color: var(--cor-claro);
+}
+</style>
+{% endblock %}

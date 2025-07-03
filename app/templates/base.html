@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ site_name }}{% endblock %}</title>
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='favicon/site.webmanifest') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Tabulator CSS -->
+    <link href="https://unpkg.com/tabulator-tables@6.2.1/dist/css/tabulator.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tabulator-custom.css') }}">
+    
+    <!-- Modular CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/variables.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/header.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/utilities.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/homepage.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/events.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/pages.css') }}">
+    
+    <!-- Responsive CSS Files -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-utilities.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-mobile.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-tablet.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-desktop.css') }}">
+    {% block head %}{% endblock %}
+    <style>
+        /* Contorno extra para dropdown e botões no modo claro */
+        body:not(.dark-theme) .dropdown-content {
+            border: 2px solid #c14c3c !important;
+            box-shadow: 0 4px 16px 0 rgba(140,47,38,0.14);
+        }
+        body:not(.dark-theme) .user-button,
+        body:not(.dark-theme) .btn,
+        body:not(.dark-theme) .theme-toggle {
+            border: 2px solid #c14c3c !important;
+        }
+        body:not(.dark-theme) .user-button:focus,
+        body:not(.dark-theme) .btn:focus,
+        body:not(.dark-theme) .theme-toggle:focus {
+            outline: 2px solid #8c2f26;
+        }
+
+        /* Corrige fundo claro do profile no modo escuro com tons menos escuros e mais suaves */
+        body.dark-theme .profile-container {
+            background: #46332e !important;
+        }
+        body.dark-theme .profile-card,
+        body.dark-theme .tab-content,
+        body.dark-theme .account-info {
+            background: #59413c !important;
+        }
+        body.dark-theme .tabs-header .tab-btn {
+            background: #3d2925 !important;
+            color: #f2b2a3 !important;
+            border-color: #6e4a41 !important;
+        }
+        body.dark-theme .tabs-header .tab-btn.active {
+            background: #59413c !important;
+            color: #e86c59 !important;
+            border-bottom: 2px solid #e86c59 !important;
+        }
+        body.dark-theme .profile-header h1,
+        body.dark-theme .profile-info h2,
+        body.dark-theme .account-info h3 {
+            color: #f2b2a3 !important;
+        }
+        body.dark-theme .profile-header p,
+        body.dark-theme .profile-info p,
+        body.dark-theme .info-item {
+            color: #e0cfc7 !important;
+        }
+    </style>
+</head>
+<body class="{{ 'dark-theme' if session.get('dark_mode') else '' }}">
+    <header>
+        <div class="logo">
+            <a href="{{ url_for('index') }}">
+                <img src="{{ url_for('static', filename='favicon/hote_icon.png') }}" alt="Logo" style="height: 20px; vertical-align: middle;">
+                <span>{{ site_name }}</span>
+            </a>
+        </div>
+        <button class="hamburger" id="hamburgerMenu" aria-label="Abrir menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <button class="nav-toggle" id="toggle-menu" aria-label="Alternar menu de navegação">
+            <i class="fas fa-bars"></i>
+        </button>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                {% if user %}
+                <li><a href="{{ url_for('dashboard') }}">Dashboard</a></li>
+                {% if user.is_admin %}
+                <li><a href="{{ url_for('admin_dashboard') }}">Admin Dashboard</a></li>
+                {% endif %}
+                {% endif %}
+                <li><a href="{{ url_for('services') }}">Serviços</a></li>
+                <li><a href="{{ url_for('about') }}">Sobre</a></li>
+                <li><a href="{{ url_for('contact') }}">Contato</a></li>
+            </ul>
+        </nav>
+        <div class="auth-buttons">
+            <button class="theme-toggle theme-toggle-desktop" type="button">
+                <i class="{{ 'fas fa-sun' if session.get('dark_mode') else 'fas fa-moon' }}"></i>
+            </button>
+            {% if current_user.is_authenticated %}
+                <div class="dropdown" id="userDropdown">
+                    <button class="user-button" type="button">
+                        <div class="avatar">{{ current_user.first_name[0] }}{{ current_user.last_name[0] }}</div>
+                        <span>{{ current_user.first_name }} {{ current_user.last_name }}</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="{{ url_for('profile') }}" onclick="event.stopPropagation()">
+                            <i class="fas fa-user"></i> Editar Perfil
+                        </a>
+                        
+                        <!-- Seção expandida de Meus Eventos -->
+                        <div class="dropdown-section">
+                            <div class="dropdown-header">
+                                <i class="fas fa-calendar"></i> Meus Eventos
+                            </div>
+                            <div class="dropdown-submenu">
+                                <a href="{{ url_for('dashboard') }}" onclick="event.stopPropagation()">
+                                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                                </a>
+                                <a href="{{ url_for('create_event') }}" onclick="event.stopPropagation()">
+                                    <i class="fas fa-plus"></i> Criar Novo Evento
+                                </a>
+                                <a href="{{ url_for('dashboard') }}#created-events" onclick="event.stopPropagation()">
+                                    <i class="fas fa-star"></i> Eventos Criados
+                                </a>
+                                <a href="{{ url_for('dashboard') }}#participating-events" onclick="event.stopPropagation()">
+                                    <i class="fas fa-users"></i> Eventos Participando
+                                </a>
+                                <a href="{{ url_for('dashboard') }}#invite-section" onclick="event.stopPropagation()">
+                                    <i class="fas fa-ticket-alt"></i> Usar Código Convite
+                                </a>
+                            </div>
+                        </div>
+                        
+                        {% if current_user.is_admin %}
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('admin_dashboard') }}" onclick="event.stopPropagation()">
+                            <i class="fas fa-tools"></i> Admin Dashboard
+                        </a>
+                        {% endif %}
+                        
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ url_for('logout') }}" onclick="event.stopPropagation()" class="logout-option">
+                            <i class="fas fa-sign-out-alt"></i> Sair da Conta
+                        </a>
+                    </div>
+                </div>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn-auth" id="loginBtn">Entrar</a>
+                <a href="{{ url_for('register') }}" class="btn-auth" id="registerBtn">Cadastrar</a>
+            {% endif %}
+        </div>
+        <!-- Lateral menu overlay -->
+        <div id="sideMenuOverlay" class="side-menu-overlay"></div>
+        <aside id="sideMenu" class="side-menu">
+            <div class="side-menu-header">
+                <button class="theme-toggle theme-toggle-mobile" type="button" title="Alternar tema">
+                    <i class="{{ 'fas fa-sun' if session.get('dark_mode') else 'fas fa-moon' }}"></i>
+                </button>
+                <button class="close-side-menu" id="closeSideMenu" aria-label="Fechar menu lateral" title="Fechar menu">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Início</a></li>
+                {% if current_user.is_authenticated %}
+                <li class="user-info-mobile">
+                    <div class="avatar-mobile">{{ current_user.first_name[0] }}{{ current_user.last_name[0] }}</div>
+                    <span>{{ current_user.first_name }} {{ current_user.last_name }}</span>
+                </li>
+                <li><a href="{{ url_for('dashboard') }}">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard
+                </a></li>
+                <li><a href="{{ url_for('create_event') }}">
+                    <i class="fas fa-plus"></i> Criar Evento
+                </a></li>
+                <li><a href="{{ url_for('dashboard') }}#created-events">
+                    <i class="fas fa-star"></i> Eventos Criados
+                </a></li>
+                <li><a href="{{ url_for('dashboard') }}#participating-events">
+                    <i class="fas fa-users"></i> Eventos Participando
+                </a></li>
+                <li><a href="{{ url_for('generate_invite_code') }}">
+                    <i class="fas fa-qrcode"></i> Gerar Código Convite
+                </a></li>
+                <li><a href="{{ url_for('profile') }}">
+                    <i class="fas fa-user"></i> Editar Perfil
+                </a></li>
+                {% if current_user.is_admin %}
+                <li><a href="{{ url_for('admin_dashboard') }}">
+                    <i class="fas fa-tools"></i> Admin Dashboard
+                </a></li>
+                {% endif %}
+                <li><a href="{{ url_for('logout') }}">
+                    <i class="fas fa-sign-out-alt"></i> Sair da Conta
+                </a></li>
+                {% else %}
+                <li><a href="{{ url_for('login') }}" class="btn-auth">Entrar</a></li>
+                <li><a href="{{ url_for('register') }}" class="btn-auth">Cadastrar</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('services') }}">Serviços</a></li>
+                <li><a href="{{ url_for('about') }}">Sobre</a></li>
+                <li><a href="{{ url_for('contact') }}">Contato</a></li>
+            </ul>
+        </aside>
+    </header>
+
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        {{ message }}
+                        <button class="close-btn">&times;</button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    {% include 'bases/footer.html' %}
+    <!-- Tabulator JS -->
+    <script src="https://unpkg.com/tabulator-tables@6.2.1/dist/js/tabulator.min.js"></script>
+    <script src="{{ url_for('static', filename='js/tabulator-init.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/menu.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <script>
+        // Theme toggle visibility handling
+        function handleThemeToggleVisibility() {
+            const themeToggleMobile = document.querySelector('.theme-toggle-mobile');
+            const themeToggleDesktop = document.querySelector('.theme-toggle-desktop');
+            if (window.innerWidth <= 991) {
+                if (themeToggleMobile) themeToggleMobile.style.display = 'inline-flex';
+                if (themeToggleDesktop) themeToggleDesktop.style.display = 'none';
+            } else {
+                if (themeToggleMobile) themeToggleMobile.style.display = 'none';
+                if (themeToggleDesktop) themeToggleDesktop.style.display = 'inline-flex';
+            }
+        }
+
+        // Posicionar flash messages dinamicamente baseado na altura do header
+        function positionFlashMessages() {
+            const header = document.querySelector('header');
+            const flashMessages = document.querySelector('.flash-messages');
+            
+            if (header && flashMessages) {
+                const headerHeight = header.offsetHeight;
+                const topPosition = headerHeight + 10; // 10px de margem
+                flashMessages.style.top = `${topPosition}px`;
+            }
+        }
+
+        window.addEventListener('resize', handleThemeToggleVisibility);
+        window.addEventListener('resize', positionFlashMessages);
+        document.addEventListener('DOMContentLoaded', function() {
+            handleThemeToggleVisibility();
+            positionFlashMessages();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+/* ===================================================
+   STYLE.CSS - ARQUIVO LEGADO DE COMPATIBILIDADE
+   Este arquivo agora serve apenas para compatibilidade.
+   Todos os estilos foram migrados para arquivos específicos:
+   
+   - variables.css: Variáveis globais e temas
+   - base.css: Reset, tipografia, botões básicos
+   - header.css: Header, navegação, dropdown
+   - footer.css: Footer
+   - forms.css: Formulários
+   - homepage.css: Homepage específica
+   - auth.css: Login e registro
+   - dashboard.css: Dashboard
+   - events.css: Páginas de eventos
+   - profile.css: Página de perfil
+   - pages.css: Páginas estáticas (about, contact, services)
+   - utilities.css: Classes utilitárias e componentes
+   - responsive-*.css: Design responsivo
+=================================================== */
+
+/* Este arquivo está sendo mantido apenas para compatibilidade */
+/* Todos os estilos foram migrados para arquivos específicos */
+
+/* Importa as variáveis essenciais caso alguém referencie */
+@import 'variables.css';
+
+/* Aviso para desenvolvedores */
+/*
+NOTA: Este arquivo não deve mais ser usado diretamente.
+Use os arquivos CSS específicos para cada seção/página.
+*/

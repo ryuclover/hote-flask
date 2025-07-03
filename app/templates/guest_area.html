@@ -1,0 +1,326 @@
+{% extends "base.html" %}
+
+{% block title %}Área do Convidado - {{ event.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="guest-area-header">
+        <h1>{{ event.title }}</h1>
+        <p class="event-date">{{ event.date.strftime('%d/%m/%Y às %H:%M') }}</p>
+        <p class="event-location">{{ event.location }}</p>
+        <p class="event-description">{{ event.description }}</p>
+    </div>
+
+    <!-- Formulário para enviar mensagem -->
+    <div class="guest-message-form">
+        <h2>Deixe sua mensagem</h2>
+        <form method="POST" action="{{ url_for('send_guest_message', invite_code=event.invite_code) }}">
+            <div class="form-group">
+                <label for="guest_name">Seu Nome *</label>
+                <input type="text" id="guest_name" name="guest_name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="guest_email">Seu E-mail (opcional)</label>
+                <input type="email" id="guest_email" name="guest_email">
+            </div>
+
+            <div class="form-group">
+                <label for="message_type">Tipo de Mensagem</label>
+                <select id="message_type" name="message_type">
+                    <option value="message">Mensagem Geral</option>
+                    <option value="wish">Votos de Felicidade</option>
+                    <option value="memory">Compartilhar Memória</option>
+                    <option value="gift_info">Informação sobre Presente</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Sua Mensagem</label>
+                <textarea id="message" name="message" rows="4" placeholder="Escreva sua mensagem para o evento..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar Mensagem</button>
+        </form>
+    </div>
+
+    <!-- Exibir mensagens dos convidados -->
+    <div class="guest-messages">
+        <h2>Mensagens dos Convidados</h2>
+        
+        {% if messages %}
+            <div class="messages-list">
+                {% for msg in messages %}
+                <div class="guest-message-card">
+                    <div class="message-header">
+                        <h4>{{ msg.guest_name }}</h4>
+                        <span class="message-type {{ msg.message_type }}">
+                            {% if msg.message_type == 'wish' %}
+                                💝 Votos
+                            {% elif msg.message_type == 'memory' %}
+                                📸 Memória
+                            {% elif msg.message_type == 'gift_info' %}
+                                🎁 Presente
+                            {% else %}
+                                💬 Mensagem
+                            {% endif %}
+                        </span>
+                        <span class="message-date">{{ msg.created_at.strftime('%d/%m/%Y às %H:%M') }}</span>
+                    </div>
+                    
+                    {% if msg.message %}
+                        <p class="message-content">{{ msg.message }}</p>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="no-messages">Seja o primeiro a deixar uma mensagem para este evento!</p>
+        {% endif %}
+    </div>
+
+    <!-- Link para compartilhar -->
+    <div class="share-section">
+        <h3>Compartilhe com outros convidados</h3>
+        <div class="share-link">
+            <input type="text" value="{{ request.url }}" readonly id="share-url">
+            <button onclick="copyShareLink()" class="btn btn-secondary">Copiar Link</button>
+        </div>
+    </div>
+</div>
+
+<style>
+.guest-area-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.guest-area-header h1 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.event-date, .event-location {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin: 0.5rem 0;
+}
+
+.event-description {
+    color: #34495e;
+    font-style: italic;
+    margin-top: 1rem;
+}
+
+.guest-message-form {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.guest-message-form h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #34495e;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.guest-messages h2 {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+}
+
+.messages-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.guest-message-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-left: 4px solid #3498db;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.message-header h4 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.message-type {
+    background: #3498db;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.message-type.wish {
+    background: #e74c3c;
+}
+
+.message-type.memory {
+    background: #f39c12;
+}
+
+.message-type.gift_info {
+    background: #27ae60;
+}
+
+.message-date {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.message-content {
+    color: #34495e;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.no-messages {
+    text-align: center;
+    color: #7f8c8d;
+    font-style: italic;
+    padding: 2rem;
+}
+
+.share-section {
+    background: #ecf0f1;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.share-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.share-link {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.share-link input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .guest-message-form {
+        padding: 1.5rem;
+    }
+    
+    .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .share-link {
+        flex-direction: column;
+    }
+}
+</style>
+
+<script>
+function copyShareLink() {
+    const urlInput = document.getElementById('share-url');
+    urlInput.select();
+    urlInput.setSelectionRange(0, 99999);
+    
+    try {
+        document.execCommand('copy');
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Copiado!';
+        button.style.background = '#27ae60';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+        }, 2000);
+    } catch (err) {
+        console.error('Erro ao copiar link:', err);
+    }
+}
+</script>
+{% endblock %}

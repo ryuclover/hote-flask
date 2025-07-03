@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard - {{ site_name }}{% endblock %}
+
+{% block content %}
+<h1 style="margin-bottom: 1.5rem;">Admin Dashboard</h1>
+
+<!-- Criar Novo Evento Button - Top of Admin Dashboard -->
+<div class="dashboard-actions-top" style="text-align:center; margin-bottom: 2.5rem;">
+    <a href="{{ url_for('create_event') }}" class="btn btn-primary create-event-btn" style="padding:0.8rem 2.5rem; font-size:1.2rem; display:inline-flex; align-items:center; gap:0.5rem; background:#c14c3c; color:white; text-decoration:none; border-radius:8px; box-shadow: 0 3px 12px rgba(193,76,60,0.3); transition: all 0.3s ease;">
+        <i class="fas fa-plus"></i> Criar Novo Evento
+    </a>
+</div>
+
+<div class="admin-dashboard">
+    <section class="admin-section">
+        <h2>Usuários Registrados</h2>
+        <div id="users-table"></div>
+        <!-- Tabela de fallback para casos onde JS não funciona -->
+        <noscript>
+            <div class="table-responsive">
+                <table class="admin-table table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Admin</th>
+                            <th scope="col">Data de Cadastro</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.first_name }} {{ user.last_name }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{% if user.is_admin %}<span style="color:#c14c3c;">Sim</span>{% else %}Não{% endif %}</td>
+                        <td>{{ user.created_at.strftime('%d/%m/%Y') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </noscript>
+        
+        <!-- Dados JSON para o Tabulator -->
+        <script type="application/json" id="users-data">
+        [
+            {% for user in users %}
+            {
+                "id": {{ user.id }},
+                "name": "{{ user.first_name }} {{ user.last_name }}",
+                "email": "{{ user.email }}",
+                "is_admin": {{ user.is_admin|lower }},
+                "created_at": "{{ user.created_at.strftime('%d/%m/%Y') }}"
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+        </script>
+    </section>
+
+    <section class="admin-section">
+        <h2>Eventos Criados</h2>
+        <div id="events-table"></div>
+        <!-- Tabela de fallback para casos onde JS não funciona -->
+        <noscript>
+            <div class="table-responsive">
+                <table class="admin-table table table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Título</th>
+                            <th scope="col">Criador</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Local</th>
+                            <th scope="col">Código Convite</th>
+                            <th scope="col">Participantes</th>
+                        </tr>
+                    </thead>
+                <tbody>
+                    {% for event in events %}
+                    <tr>
+                        <td>{{ event.id }}</td>
+                        <td>{{ event.title }}</td>
+                        <td>{{ event.creator.first_name }} {{ event.creator.last_name }}</td>
+                        <td>{{ event.date.strftime('%d/%m/%Y %H:%M') }}</td>
+                        <td>{{ event.location }}</td>
+                        <td>{{ event.invite_code }}</td>
+                        <td>{{ event.participations|length }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </noscript>
+        
+        <!-- Dados JSON para o Tabulator -->
+        <script type="application/json" id="events-data">
+        [
+            {% for event in events %}
+            {
+                "id": {{ event.id }},
+                "title": "{{ event.title|replace('"', '\\"') }}",
+                "creator": "{{ event.creator.first_name }} {{ event.creator.last_name }}",
+                "date": "{{ event.date.strftime('%d/%m/%Y %H:%M') }}",
+                "location": "{{ event.location|replace('"', '\\"') }}",
+                "invite_code": "{{ event.invite_code }}",
+                "participants": {{ event.participations|length }}
+            }{% if not loop.last %},{% endif %}
+            {% endfor %}
+        ]
+        </script>
+    </section>
+</div>
+
+<style>
+.admin-dashboard {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+}
+.admin-section {
+    flex: 1 1 45%;
+    background: var(--card-bg, #fff);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.admin-section h2 {
+    margin-bottom: 1rem;
+    color: #c14c3c;
+}
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.98rem;
+}
+.admin-table th, .admin-table td {
+    border: 1px solid #e0e0e0;
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+}
+.admin-table th {
+    background: #f8f8f8;
+    color: #c14c3c;
+}
+.admin-table tr:nth-child(even) {
+    background: #faf6f5;
+}
+body.dark-theme .admin-section {
+    background: #2c2321;
+    color: #f5f5f5;
+}
+body.dark-theme .admin-table th {
+    background: #3d2925;
+    color: #f2b2a3;
+}
+body.dark-theme .admin-table tr:nth-child(even) {
+    background: #322725;
+}
+body.dark-theme .admin-table td, 
+body.dark-theme .admin-table th {
+    border-color: #4e2d29;
+}
+</style>
+{% endblock %}

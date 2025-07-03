@@ -1,0 +1,292 @@
+/* ===================================================
+   EVENTS.CSS - ESTILOS DAS PÁGINAS DE EVENTOS
+   Estilos para criação, edição e visualização de eventos
+=================================================== */
+
+/* Event Forms */
+.event-form {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-color);
+}
+
+.event-form h1 {
+    color: var(--cor-primaria);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.event-form .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.event-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+}
+
+.event-form input,
+.event-form textarea,
+.event-form select {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    background: var(--input-bg);
+    color: var(--cor-texto);
+    font-size: 1rem;
+    transition: var(--transition);
+    font-family: var(--font-family);
+}
+
+.event-form textarea {
+    resize: vertical;
+    min-height: 120px;
+}
+
+.event-form input:focus,
+.event-form textarea:focus,
+.event-form select:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(140, 47, 38, 0.1);
+}
+
+.event-form .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.event-form .form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+/* Event Cards */
+.event-card {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.event-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(140, 47, 38, 0.1);
+}
+
+.event-card-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.event-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--cor-primaria);
+    margin-bottom: 0.5rem;
+}
+
+.event-card-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.event-card-body {
+    padding: 1.5rem;
+}
+
+.event-card-description {
+    color: var(--cor-texto);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.event-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+
+.event-card-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+}
+
+/* Event Details */
+.event-details {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.event-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+}
+
+.event-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--cor-primaria);
+    margin-bottom: 1rem;
+}
+
+.event-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.event-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.event-info-card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-card);
+}
+
+.event-info-card h3 {
+    color: var(--cor-primaria);
+    margin-bottom: 1rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.event-info-card p {
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* Guest Messages */
+.guest-messages {
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.guest-messages-header {
+    background: var(--cor-fundo-alternativo);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.guest-messages-header h2 {
+    color: var(--cor-primaria);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.guest-message {
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.guest-message:last-child {
+    border-bottom: none;
+}
+
+.guest-message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+
+.guest-name {
+    font-weight: 600;
+    color: var(--cor-primaria);
+}
+
+.guest-date {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.guest-message-content {
+    color: var(--cor-texto);
+    line-height: 1.6;
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .event-form,
+body.dark-theme .event-card,
+body.dark-theme .event-info-card,
+body.dark-theme .guest-messages {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .event-form input,
+body.dark-theme .event-form textarea,
+body.dark-theme .event-form select {
+    background: var(--input-bg);
+    border-color: var(--input-border);
+    color: var(--cor-texto);
+}
+
+body.dark-theme .event-form input:focus,
+body.dark-theme .event-form textarea:focus,
+body.dark-theme .event-form select:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(242, 178, 163, 0.2);
+}
+
+body.dark-theme .guest-messages-header {
+    background: var(--cor-fundo-alternativo);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .event-form .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .event-form .form-actions {
+        flex-direction: column;
+    }
+    
+    .event-title {
+        font-size: 2rem;
+    }
+    
+    .event-info-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .event-card-actions {
+        flex-direction: column;
+    }
+}

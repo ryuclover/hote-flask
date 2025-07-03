@@ -1,0 +1,389 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ site_name }} - Realize seu evento dos sonhos{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Realize <span class="highlight-text">seu evento dos sonhos</span></h1>
+        <p class="hero-subtitle">Planejamento, organização e execução de eventos com excelência e personalização. Transformamos suas ideias em experiências inesquecíveis.</p>
+        <div class="hero-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-hero">
+                    <i class="fas fa-plus"></i> Criar Meu Evento Agora
+                </a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline btn-hero">
+                    <i class="fas fa-star"></i> Ver Nossos Serviços
+                </a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-hero">
+                    <i class="fas fa-rocket"></i> Começar Agora - Grátis
+                </a>
+                <a href="#services-section" class="btn btn-outline btn-hero scroll-to-services">
+                    <i class="fas fa-eye"></i> Ver Nossos Serviços
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='img/hero-image.svg') }}" alt="Ilustração de evento">
+    </div>
+</section>
+
+<section class="services-section" id="services-section">
+    <div class="container">
+        <h2>Nossos Serviços</h2>
+        <p class="services-subtitle">Oferecemos soluções completas para tornar seu evento especial e inesquecível</p>
+        
+        <div class="services-grid">
+            <!-- Festas de Aniversário -->
+            <div class="service-card" onclick="handleServiceClick('aniversario')" data-service="aniversario">
+                <div class="service-icon">
+                    <i class="fas fa-birthday-cake"></i>
+                </div>
+                <h3>Festas de Aniversário</h3>
+                <p>Planejamento completo para festas de aniversário inesquecíveis, desde a decoração até o entretenimento.</p>
+                <div class="service-features">
+                    <span class="feature-tag">Decoração temática</span>
+                    <span class="feature-tag">Buffet personalizado</span>
+                    <span class="feature-tag">Animação</span>
+                </div>
+                <div class="service-action">
+                    {% if current_user.is_authenticated %}
+                        <small>👆 Clique para criar seu evento de aniversário</small>
+                    {% else %}
+                        <small>👆 Clique para se cadastrar e criar seu evento</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Casamentos -->
+            <div class="service-card" onclick="handleServiceClick('casamento')" data-service="casamento">
+                <div class="service-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h3>Casamentos</h3>
+                <p>Transformamos seu dia especial em um momento mágico e inesquecível para você e seus convidados.</p>
+                <div class="service-features">
+                    <span class="feature-tag">Cerimônia e recepção</span>
+                    <span class="feature-tag">Decoração floral</span>
+                    <span class="feature-tag">Coordenação</span>
+                </div>
+                <div class="service-action">
+                    {% if current_user.is_authenticated %}
+                        <small>👆 Clique para criar seu casamento dos sonhos</small>
+                    {% else %}
+                        <small>👆 Clique para se cadastrar e planejar seu casamento</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Eventos Corporativos -->
+            <div class="service-card" onclick="handleServiceClick('corporativo')" data-service="corporativo">
+                <div class="service-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Eventos Corporativos</h3>
+                <p>Organizamos eventos empresariais profissionais que fortalecem sua marca e engajam sua equipe.</p>
+                <div class="service-features">
+                    <span class="feature-tag">Conferências</span>
+                    <span class="feature-tag">Team building</span>
+                    <span class="feature-tag">Networking</span>
+                </div>
+                <div class="service-action">
+                    {% if current_user.is_authenticated %}
+                        <small>👆 Clique para criar seu evento corporativo</small>
+                    {% else %}
+                        <small>👆 Clique para se cadastrar e organizar eventos corporativos</small>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Formaturas -->
+            <div class="service-card" onclick="handleServiceClick('formatura')" data-service="formatura">
+                <div class="service-icon">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+                <h3>Formaturas</h3>
+                <p>Celebre suas conquistas acadêmicas com uma festa de formatura memorável e elegante.</p>
+                <div class="service-features">
+                    <span class="feature-tag">Cerimônia de colação</span>
+                    <span class="feature-tag">Confraternização</span>
+                    <span class="feature-tag">Registro fotográfico</span>
+                </div>
+                <div class="service-action">
+                    {% if current_user.is_authenticated %}
+                        <small>👆 Clique para planejar sua formatura</small>
+                    {% else %}
+                        <small>👆 Clique para se cadastrar e celebrar sua formatura</small>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="services-cta">
+            <p>Criamos experiências memoráveis que ficarão para sempre na lembrança dos seus convidados.</p>
+            <div class="services-actions">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Criar Meu Evento Agora
+                    </a>
+                    <a href="{{ url_for('services') }}" class="btn btn-outline">
+                        <i class="fas fa-star"></i>
+                        Ver Nossos Serviços
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i>
+                        Começar Agora - Grátis
+                    </a>
+                    <a href="#services-section" class="btn btn-outline">
+                        <i class="fas fa-eye"></i>
+                        Ver Nossos Serviços
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Por que escolher nossos serviços?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Planejamento Completo</h3>
+            <p>Cuidamos de todos os detalhes do seu evento, desde a concepção até a execução.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Equipe Especializada</h3>
+            <p>Profissionais experientes e dedicados para garantir o sucesso do seu evento.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>Personalização</h3>
+            <p>Cada evento é único e personalizado de acordo com suas preferências e necessidades.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Momentos Inesquecíveis</h3>
+            <p>Criamos experiências memoráveis que ficarão para sempre na lembrança.</p>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <div class="container">
+        <h2>O que nossos clientes dizem</h2>
+        <p class="testimonials-subtitle">Veja como transformamos momentos especiais em memórias inesquecíveis</p>
+        
+        <div class="testimonials-grid">
+            <!-- Depoimento 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Meu casamento foi absolutamente perfeito! A equipe cuidou de cada detalhe com tanto carinho que pude simplesmente aproveitar o meu dia especial. Recomendo de olhos fechados!"
+                    </blockquote>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Marina Silva</h4>
+                        <span>Casamento - São Paulo</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Depoimento 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "A festa de 15 anos da minha filha superou todas as expectativas! Foi mágico ver o sorriso dela durante toda a festa. Profissionais excepcionais!"
+                    </blockquote>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Carlos Mendes</h4>
+                        <span>Festa de 15 anos - Rio de Janeiro</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Depoimento 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Nosso evento corporativo foi um sucesso total! A organização impecável impressionou todos os nossos clientes e colaboradores. Parceria de confiança!"
+                    </blockquote>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Ana Paula Costa</h4>
+                        <span>Evento Corporativo - Brasília</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Depoimento 4 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="testimonial-stars">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <blockquote>
+                        "Minha formatura foi inesquecível! Desde o primeiro contato até o último detalhe da festa, tudo foi perfeito. Obrigado por tornarem esse momento tão especial!"
+                    </blockquote>
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="author-info">
+                        <h4>Rafael Santos</h4>
+                        <span>Formatura - Belo Horizonte</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="testimonials-stats">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Eventos Realizados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">98%</div>
+                <div class="stat-label">Clientes Satisfeitos</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">5★</div>
+                <div class="stat-label">Avaliação Média</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">8+</div>
+                <div class="stat-label">Anos de Experiência</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="cta-content">
+        <h2>Pronto para realizar seu evento?</h2>
+        <p>
+            {% if current_user.is_authenticated %}
+                Acesse seu dashboard para gerenciar seus eventos ou crie um novo agora mesmo!
+            {% else %}
+                Cadastre-se agora e comece a planejar o evento dos seus sonhos com nossa plataforma completa!
+            {% endif %}
+        </p>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('create_event') }}" class="btn btn-primary">Criar Novo Evento</a>
+        {% else %}
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Começar agora</a>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/json" id="user-data">
+{
+    "isAuthenticated": {% if current_user.is_authenticated %}true{% else %}false{% endif %},
+    "createEventUrl": "{{ url_for('create_event') }}",
+    "registerUrl": "{{ url_for('register') }}"
+}
+</script>
+
+<script>
+// Service Click Handler for Conversion
+function handleServiceClick(serviceType) {
+    const userData = JSON.parse(document.getElementById('user-data').textContent);
+    const isLoggedIn = userData.isAuthenticated;
+    
+    if (isLoggedIn) {
+        // User is logged in - redirect to create event with pre-selected type
+        const params = new URLSearchParams({ type: serviceType });
+        window.location.href = `${userData.createEventUrl}?${params.toString()}`;
+    } else {
+        // User is not logged in - redirect to register with service context
+        const serviceParams = new URLSearchParams({ 
+            service: serviceType,
+            ref: 'homepage_service'
+        });
+        window.location.href = `${userData.registerUrl}?${serviceParams.toString()}`;
+    }
+}
+
+// Smooth scroll for service links
+document.querySelectorAll('.scroll-to-services').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('services-section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+});
+
+// Add visual feedback for service cards
+document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+    
+    // Add click animation
+    card.addEventListener('click', function() {
+        this.style.transform = 'translateY(-8px) scale(0.98)';
+        setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        }, 150);
+    });
+});
+</script>
+{% endblock %}

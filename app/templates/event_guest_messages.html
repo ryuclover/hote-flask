@@ -1,0 +1,460 @@
+{% extends "base.html" %}
+
+{% block title %}Mensagens dos Convidados - {{ event.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="event-header">
+        <h1>Mensagens dos Convidados</h1>
+        <h2>{{ event.title }}</h2>
+        <p class="event-info">
+            <span>📅 {{ event.date.strftime('%d/%m/%Y às %H:%M') }}</span>
+            <span>📍 {{ event.location }}</span>
+        </p>
+    </div>
+
+    <!-- Link para área de convidado -->
+    <div class="guest-link-section">
+        <h3>Link para Convidados</h3>
+        <p>Compartilhe este link com seus convidados para que possam enviar mensagens:</p>
+        <div class="link-container">
+            <input type="text" value="{{ url_for('guest_area', invite_code=event.invite_code, _external=True) }}" readonly id="guest-link">
+            <button onclick="copyGuestLink()" class="btn btn-secondary">Copiar Link</button>
+        </div>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="stats-section">
+        <div class="stat-card">
+            <h4>Total de Mensagens</h4>
+            <span class="stat-number">{{ messages|length }}</span>
+        </div>
+        <div class="stat-card">
+            <h4>Mensagens Hoje</h4>
+            <span class="stat-number">{{ messages|selectattr('created_at')|selectattr('created_at', 'ge', today)|list|length }}</span>
+        </div>
+        <div class="stat-card">
+            <h4>Tipos de Mensagem</h4>
+            <span class="stat-number">{{ messages|map(attribute='message_type')|unique|list|length }}</span>
+        </div>
+    </div>
+
+    <!-- Filtros -->
+    <div class="filters-section">
+        <h3>Filtrar Mensagens</h3>
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">Todas</button>
+            <button class="filter-btn" data-filter="message">💬 Mensagens</button>
+            <button class="filter-btn" data-filter="wish">💝 Votos</button>
+            <button class="filter-btn" data-filter="memory">📸 Memórias</button>
+            <button class="filter-btn" data-filter="gift_info">🎁 Presentes</button>
+        </div>
+    </div>
+
+    <!-- Mensagens -->
+    <div class="messages-section">
+        {% if messages %}
+            <div class="messages-grid">
+                {% for msg in messages %}
+                <div class="message-card" data-type="{{ msg.message_type }}">
+                    <div class="message-header">
+                        <div class="guest-info">
+                            <h4>{{ msg.guest_name }}</h4>
+                            {% if msg.guest_email %}
+                                <span class="guest-email">{{ msg.guest_email }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="message-meta">
+                            <span class="message-type {{ msg.message_type }}">
+                                {% if msg.message_type == 'wish' %}
+                                    💝 Votos
+                                {% elif msg.message_type == 'memory' %}
+                                    📸 Memória
+                                {% elif msg.message_type == 'gift_info' %}
+                                    🎁 Presente
+                                {% else %}
+                                    💬 Mensagem
+                                {% endif %}
+                            </span>
+                            <span class="message-date">{{ msg.created_at.strftime('%d/%m/%Y às %H:%M') }}</span>
+                        </div>
+                    </div>
+                    
+                    {% if msg.message %}
+                        <div class="message-content">
+                            <p>{{ msg.message }}</p>
+                        </div>
+                    {% endif %}
+
+                    <div class="message-actions">
+                        <button class="btn btn-small" onclick="toggleApproval('{{ msg.id }}')">
+                            {% if msg.is_approved %}
+                                Ocultar
+                            {% else %}
+                                Aprovar
+                            {% endif %}
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-messages">
+                <h3>Nenhuma mensagem ainda</h3>
+                <p>Compartilhe o link com seus convidados para que eles possam enviar mensagens!</p>
+                <a href="{{ url_for('guest_area', invite_code=event.invite_code) }}" class="btn btn-primary" target="_blank">
+                    Ver Área de Convidado
+                </a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Voltar ao dashboard -->
+    <div class="back-section">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">← Voltar ao Dashboard</a>
+    </div>
+</div>
+
+<style>
+.event-header {
+    text-align: center;
+    padding: 2rem 0;
+    border-bottom: 2px solid #eee;
+    margin-bottom: 2rem;
+}
+
+.event-header h1 {
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.event-header h2 {
+    color: #3498db;
+    margin-bottom: 1rem;
+}
+
+.event-info {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    color: #7f8c8d;
+    flex-wrap: wrap;
+}
+
+.guest-link-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+}
+
+.guest-link-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.link-container {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.link-container input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background: white;
+}
+
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.stat-card h4 {
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.filters-section {
+    margin-bottom: 2rem;
+}
+
+.filters-section h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 0.5rem 1rem;
+    border: 2px solid #3498db;
+    background: white;
+    color: #3498db;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+    background: #3498db;
+    color: white;
+}
+
+.messages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    gap: 1.5rem;
+}
+
+.message-card {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    border-left: 4px solid #3498db;
+    transition: transform 0.3s ease;
+}
+
+.message-card:hover {
+    transform: translateY(-5px);
+}
+
+.message-card[data-type="wish"] {
+    border-left-color: #e74c3c;
+}
+
+.message-card[data-type="memory"] {
+    border-left-color: #f39c12;
+}
+
+.message-card[data-type="gift_info"] {
+    border-left-color: #27ae60;
+}
+
+.message-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.guest-info h4 {
+    color: #2c3e50;
+    margin: 0;
+}
+
+.guest-email {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.message-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+}
+
+.message-type {
+    background: #3498db;
+    color: white;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.message-type.wish {
+    background: #e74c3c;
+}
+
+.message-type.memory {
+    background: #f39c12;
+}
+
+.message-type.gift_info {
+    background: #27ae60;
+}
+
+.message-date {
+    color: #7f8c8d;
+    font-size: 0.85rem;
+}
+
+.message-content p {
+    color: #34495e;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.message-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #eee;
+}
+
+.no-messages {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #7f8c8d;
+}
+
+.no-messages h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.back-section {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #3498db;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #2980b9;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #95a5a6;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #7f8c8d;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+    .messages-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .event-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .link-container {
+        flex-direction: column;
+    }
+    
+    .message-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .message-meta {
+        align-items: flex-start;
+    }
+}
+</style>
+
+<script>
+// Filtros
+document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        // Remover active de todos
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        // Adicionar active ao clicado
+        btn.classList.add('active');
+        
+        const filter = btn.dataset.filter;
+        const cards = document.querySelectorAll('.message-card');
+        
+        cards.forEach(card => {
+            if (filter === 'all' || card.dataset.type === filter) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    });
+});
+
+// Copiar link do convidado
+function copyGuestLink() {
+    const linkInput = document.getElementById('guest-link');
+    linkInput.select();
+    linkInput.setSelectionRange(0, 99999);
+    
+    try {
+        document.execCommand('copy');
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Copiado!';
+        button.style.background = '#27ae60';
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.style.background = '';
+        }, 2000);
+    } catch (err) {
+        console.error('Erro ao copiar link:', err);
+    }
+}
+
+// Função para aprovar/ocultar mensagem (placeholder)
+function toggleApproval(messageId) {
+    // Aqui você implementaria a funcionalidade de aprovar/ocultar
+    console.log('Toggle approval for message:', messageId);
+    // Por enquanto, apenas uma demonstração visual
+    const button = event.target;
+    if (button.textContent === 'Ocultar') {
+        button.textContent = 'Aprovar';
+        button.style.background = '#e74c3c';
+    } else {
+        button.textContent = 'Ocultar';
+        button.style.background = '#27ae60';
+    }
+}
+</script>
+{% endblock %}

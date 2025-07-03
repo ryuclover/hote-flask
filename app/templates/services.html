@@ -1,0 +1,450 @@
+{% extends 'base.html' %}
+
+{% block title %}Serviços - {{ site_name }}{% endblock %}
+
+{% block content %}
+<div class="services-page">
+    <!-- Hero Section -->
+    <section class="services-hero">
+        <div class="container">
+            <h1>Nossos Serviços</h1>
+            <p class="hero-subtitle">Oferecemos soluções completas para todos os tipos de eventos</p>
+        </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="services-grid">
+        <div class="container">
+            <div class="services-cards">
+                <div class="service-card">
+                    <div class="service-icon">🎂</div>
+                    <h3>Aniversários</h3>
+                    <p>Organizamos festas de aniversário inesquecíveis, desde comemorações íntimas até grandes celebrações.</p>
+                    <ul class="service-features">
+                        <li>Planejamento completo</li>
+                        <li>Decoração temática</li>
+                        <li>Coordenação de fornecedores</li>
+                        <li>Gestão de convidados</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Criar Evento</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💒</div>
+                    <h3>Casamentos</h3>
+                    <p>Transformamos o seu dia especial em um momento mágico e inesquecível para você e seus convidados.</p>
+                    <ul class="service-features">
+                        <li>Cerimônia e recepção</li>
+                        <li>Coordenação de agenda</li>
+                        <li>Gestão de fornecedores</li>
+                        <li>Timeline personalizada</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Planejar Casamento</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">💼</div>
+                    <h3>Eventos Corporativos</h3>
+                    <p>Reuniões, conferências, workshops e eventos de networking profissionais e eficientes.</p>
+                    <ul class="service-features">
+                        <li>Gestão de participantes</li>
+                        <li>Tecnologia e AV</li>
+                        <li>Catering especializado</li>
+                        <li>Relatórios pós-evento</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Organizar Evento</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎓</div>
+                    <h3>Formaturas</h3>
+                    <p>Celebre suas conquistas acadêmicas com uma festa de formatura memorável e bem organizada.</p>
+                    <ul class="service-features">
+                        <li>Cerimônia oficial</li>
+                        <li>Festa de comemoração</li>
+                        <li>Gestão de familiares</li>
+                        <li>Fotografia e vídeo</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Celebrar Formatura</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">🎉</div>
+                    <h3>Festas e Celebrações</h3>
+                    <p>Qualquer motivo é válido para comemorar! Organizamos festas para todas as ocasiões.</p>
+                    <ul class="service-features">
+                        <li>Temas personalizados</li>
+                        <li>Entretenimento</li>
+                        <li>Decoração criativa</li>
+                        <li>Catering especializado</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Fazer Festa</a>
+                </div>
+
+                <div class="service-card">
+                    <div class="service-icon">📚</div>
+                    <h3>Workshops e Seminários</h3>
+                    <p>Eventos educacionais e de capacitação com foco no aprendizado e networking.</p>
+                    <ul class="service-features">
+                        <li>Gestão de inscrições</li>
+                        <li>Material didático</li>
+                        <li>Certificados</li>
+                        <li>Avaliação de resultados</li>
+                    </ul>
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">Organizar Workshop</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="services-process">
+        <div class="container">
+            <h2>Como Funciona</h2>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h4>Planejamento</h4>
+                    <p>Defina o tipo de evento, data, local e detalhes importantes</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h4>Configuração</h4>
+                    <p>Configure as preferências do evento e gere o código de convite</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h4>Convites</h4>
+                    <p>Compartilhe o código ou link com seus convidados</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h4>Gestão</h4>
+                    <p>Acompanhe confirmações e gerencie todos os aspectos do evento</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="services-cta">
+        <div class="container">
+            <h2>Pronto para começar?</h2>
+            <p>Crie seu primeiro evento agora mesmo e veja como é fácil organizar qualquer tipo de celebração!</p>
+            <div class="cta-buttons">
+                <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-large">Criar Evento Agora</a>
+                {% if not user %}
+                    <a href="{{ url_for('register') }}" class="btn btn-secondary btn-large">Cadastrar-se</a>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</div>
+
+<style>
+.services-page {
+    background-color: #f8f9fa;
+}
+
+.services-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.services-hero h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.services-grid {
+    padding: 4rem 0;
+}
+
+.services-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.service-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.service-card h3 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.service-card p {
+    color: #7f8c8d;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+}
+
+.service-features {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0;
+    text-align: left;
+}
+
+.service-features li {
+    padding: 0.5rem 0;
+    color: #34495e;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.service-features li:before {
+    content: "✓";
+    color: #27ae60;
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+}
+
+.services-process {
+    background: white;
+    padding: 4rem 0;
+}
+
+.services-process h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+}
+
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.process-step {
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.step-number {
+    width: 60px;
+    height: 60px;
+    background: #3498db;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 auto 1rem;
+}
+
+.process-step h4 {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.process-step p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+.services-cta {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.services-cta h2 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.services-cta p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 8px;
+}
+
+.btn {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: #34495e;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background: #2c3e50;
+    transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+    .services-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .services-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .process-steps {
+        grid-template-columns: 1fr;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .services-cta h2 {
+        font-size: 2rem;
+    }
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .services-page {
+    background-color: var(--cor-fundo);
+}
+
+body.dark-theme .services-hero {
+    background: linear-gradient(135deg, var(--cor-escuro) 0%, var(--cor-fundo) 100%);
+}
+
+body.dark-theme .services-grid {
+    background: var(--cor-fundo);
+}
+
+body.dark-theme .service-card {
+    background: var(--card-bg);
+    color: var(--cor-texto);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .service-card h3 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .service-card p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .service-features li {
+    color: var(--cor-texto);
+}
+
+body.dark-theme .process-section {
+    background: var(--cor-fundo-alternativo);
+}
+
+body.dark-theme .process-section h2 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .process-step {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme .process-step h4 {
+    color: var(--cor-primaria);
+}
+
+body.dark-theme .process-step p {
+    color: var(--cor-texto-secundario);
+}
+
+body.dark-theme .step-number {
+    background: var(--cor-primaria);
+    color: var(--cor-claro);
+}
+
+body.dark-theme .services-cta {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+}
+
+body.dark-theme .btn-primary {
+    background: var(--cor-primaria);
+    color: var(--cor-claro);
+}
+
+body.dark-theme .btn-primary:hover {
+    background: var(--cor-hover);
+}
+
+body.dark-theme .btn-secondary {
+    background: var(--cor-fundo-alternativo);
+    color: var(--cor-texto);
+    border: 1px solid var(--border-color);
+}
+
+body.dark-theme .btn-secondary:hover {
+    background: var(--cor-primaria);
+    color: var(--cor-claro);
+}
+</style>
+{% endblock %}

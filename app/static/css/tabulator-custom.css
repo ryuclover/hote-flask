@@ -1,0 +1,731 @@
+/* Customização do Tabulator para harmonizar com o tema do site */
+
+/* Tema claro */
+.tabulator {
+    background: var(--card-bg, #fff);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    font-family: inherit;
+    font-size: 0.98rem;
+}
+
+.tabulator .tabulator-header {
+    background: #f8f8f8;
+    border-bottom: 2px solid #c14c3c;
+    color: #c14c3c;
+    font-weight: 600;
+}
+
+.tabulator .tabulator-col {
+    background: #f8f8f8;
+    border-right: 1px solid #e0e0e0;
+}
+
+.tabulator .tabulator-col:hover {
+    background: #f0f0f0;
+}
+
+.tabulator .tabulator-col-title {
+    color: #c14c3c;
+}
+
+.tabulator .tabulator-row {
+    background: #fff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabulator .tabulator-row:nth-child(even) {
+    background: #faf6f5;
+}
+
+.tabulator .tabulator-row:hover {
+    background: #f5f0ef !important;
+}
+
+.tabulator .tabulator-cell {
+    border-right: 1px solid #e0e0e0;
+    padding: 0.75rem;
+}
+
+/* Botões de ação dentro das células */
+.tabulator .btn {
+    padding: 0.3rem 0.6rem;
+    margin: 0 0.2rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.tabulator .btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+}
+
+.tabulator .btn-secondary {
+    background: #6c757d;
+    color: white;
+    border: 1px solid #6c757d;
+}
+
+.tabulator .btn-info {
+    background: #17a2b8;
+    color: white;
+    border: 1px solid #17a2b8;
+}
+
+.tabulator .btn-success {
+    background: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+}
+
+.tabulator .btn:hover {
+    opacity: 0.8;
+    transform: translateY(-1px);
+}
+
+/* Controles de busca e filtros */
+.tabulator-header-filter input {
+    border: 1px solid #c14c3c;
+    border-radius: 4px;
+    padding: 0.4rem;
+    width: 100%;
+    font-size: 0.85rem;
+}
+
+.tabulator-header-filter input:focus {
+    outline: none;
+    border-color: #8c2f26;
+    box-shadow: 0 0 0 2px rgba(193, 76, 60, 0.2);
+}
+
+/* Paginação */
+.tabulator-footer {
+    background: #f8f8f8;
+    border-top: 1px solid #e0e0e0;
+    padding: 0.75rem;
+}
+
+.tabulator-page {
+    background: #fff;
+    border: 1px solid #c14c3c;
+    color: #c14c3c;
+    margin: 0 0.2rem;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tabulator-page:hover,
+.tabulator-page.active {
+    background: #c14c3c;
+    color: white;
+}
+
+/* Modo escuro */
+body.dark-theme .tabulator {
+    background: #2c2321;
+    border-color: #4e2d29;
+    color: #f5f5f5;
+}
+
+body.dark-theme .tabulator .tabulator-header {
+    background: #3d2925;
+    border-bottom-color: #f2b2a3;
+}
+
+body.dark-theme .tabulator .tabulator-col {
+    background: #3d2925;
+    border-right-color: #4e2d29;
+}
+
+body.dark-theme .tabulator .tabulator-col:hover {
+    background: #4a332e;
+}
+
+body.dark-theme .tabulator .tabulator-col-title {
+    color: #f2b2a3;
+}
+
+body.dark-theme .tabulator .tabulator-row {
+    background: #2c2321;
+    border-bottom-color: #4e2d29;
+    color: #f5f5f5;
+}
+
+body.dark-theme .tabulator .tabulator-row:nth-child(even) {
+    background: #322725;
+}
+
+body.dark-theme .tabulator .tabulator-row:hover {
+    background: #3d2f2b !important;
+}
+
+body.dark-theme .tabulator .tabulator-cell {
+    border-right-color: #4e2d29;
+}
+
+body.dark-theme .tabulator-header-filter input {
+    background: #3d2925;
+    border-color: #f2b2a3;
+    color: #f5f5f5;
+}
+
+body.dark-theme .tabulator-header-filter input::placeholder {
+    color: #b89088;
+}
+
+body.dark-theme .tabulator-footer {
+    background: #3d2925;
+    border-top-color: #4e2d29;
+}
+
+body.dark-theme .tabulator-page {
+    background: #2c2321;
+    border-color: #f2b2a3;
+    color: #f2b2a3;
+}
+
+body.dark-theme .tabulator-page:hover,
+body.dark-theme .tabulator-page.active {
+    background: #f2b2a3;
+    color: #2c2321;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .tabulator {
+        font-size: 0.9rem;
+    }
+    
+    .tabulator .tabulator-cell {
+        padding: 0.5rem;
+    }
+    
+    .tabulator .btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Melhorias na responsividade */
+@media (max-width: 991px) {
+    .table-toolbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0.75rem;
+    }
+
+    .table-search {
+        width: 100%;
+        max-width: none;
+    }
+
+    .tabulator {
+        font-size: 0.85rem;
+    }
+
+    .tabulator .tabulator-cell {
+        padding: 0.4rem;
+    }
+
+    .tabulator .btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.75rem;
+        margin: 0 0.1rem;
+    }
+
+    .tabulator .btn-sm {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.7rem;
+    }
+
+    /* Ajustar larguras das colunas em mobile */
+    .tabulator-col[data-field="title"] {
+        min-width: 120px;
+    }
+
+    .tabulator-col[data-field="actions"] {
+        min-width: 100px;
+    }
+
+    .tabulator-col[data-field="date"] {
+        min-width: 90px;
+    }
+
+    .tabulator-col[data-field="participants"] {
+        min-width: 70px;
+    }
+
+    /* Melhorar visualização dos status badges em mobile */
+    .status-badge {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.3rem;
+        border-radius: 3px;
+        display: inline-block;
+        margin: 0.1rem 0;
+    }
+
+    .status-public {
+        background: rgba(40, 167, 69, 0.1);
+        color: #28a745;
+        border: 1px solid rgba(40, 167, 69, 0.3);
+    }
+
+    .status-private {
+        background: rgba(108, 117, 125, 0.1);
+        color: #6c757d;
+        border: 1px solid rgba(108, 117, 125, 0.3);
+    }
+
+    /* Paginação responsiva */
+    .tabulator-footer {
+        padding: 0.5rem;
+        font-size: 0.85rem;
+    }
+
+    .tabulator-page {
+        padding: 0.3rem 0.5rem;
+        margin: 0 0.1rem;
+        font-size: 0.8rem;
+    }
+
+    /* Action buttons responsivos */
+    .action-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.2rem;
+        justify-content: center;
+    }
+
+    .action-buttons .btn {
+        flex: 1;
+        min-width: 28px;
+        text-align: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .tabulator {
+        font-size: 0.8rem;
+        border-radius: 6px;
+    }
+
+    .tabulator .tabulator-cell {
+        padding: 0.3rem;
+    }
+
+    .tabulator .tabulator-header {
+        font-size: 0.75rem;
+    }
+
+    .tabulator .tabulator-col-title {
+        font-weight: 600;
+    }
+
+    /* Esconder colunas menos importantes em telas muito pequenas */
+    .tabulator-col[data-field="id"] {
+        display: none;
+    }
+
+    .tabulator-col[data-field="location"] {
+        display: none;
+    }
+
+    .tabulator-col[data-field="invite_code"] {
+        display: none;
+    }
+
+    /* Toolbar em telas muito pequenas */
+    .table-toolbar {
+        padding: 0.5rem;
+    }
+
+    .table-toolbar .btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    /* Melhorar formatação do tipo de evento em mobile */
+    .event-type-mobile {
+        display: block;
+        font-size: 0.75rem;
+        margin-top: 0.2rem;
+        opacity: 0.8;
+    }
+}
+
+/* Estilos para dark theme em dispositivos móveis */
+@media (max-width: 991px) {
+    body.dark-theme .status-public {
+        background: rgba(40, 167, 69, 0.2);
+        color: #4caf50;
+    }
+
+    body.dark-theme .status-private {
+        background: rgba(158, 158, 158, 0.2);
+        color: #9e9e9e;
+    }
+}
+
+/* Animações suaves para interações */
+.tabulator .tabulator-row {
+    transition: background-color 0.2s ease;
+}
+
+.tabulator .btn {
+    transition: all 0.2s ease;
+}
+
+.tabulator .btn:active {
+    transform: translateY(0);
+}
+
+/* Melhorar acessibilidade */
+.tabulator .btn:focus {
+    outline: 2px solid var(--cor-primaria, #c14c3c);
+    outline-offset: 2px;
+}
+
+/* Navegação por teclado melhorada */
+.tabulator .tabulator-header .tabulator-col:focus {
+    outline: 2px solid var(--cor-primaria, #c14c3c);
+    outline-offset: -2px;
+}
+
+.tabulator .tabulator-row:focus-within {
+    background: rgba(193, 76, 60, 0.1) !important;
+}
+
+body.dark-theme .tabulator .tabulator-row:focus-within {
+    background: rgba(242, 178, 163, 0.1) !important;
+}
+
+/* Skip links para acessibilidade */
+.skip-to-table {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--cor-primaria);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+.skip-to-table:focus {
+    top: 6px;
+}
+
+/* Indicadores visuais para filtros ativos */
+.tabulator-header-filter input:not(:placeholder-shown) {
+    background: rgba(193, 76, 60, 0.1);
+    border-color: var(--cor-primaria);
+}
+
+body.dark-theme .tabulator-header-filter input:not(:placeholder-shown) {
+    background: rgba(242, 178, 163, 0.1);
+}
+
+/* Melhorar contraste em modo escuro */
+body.dark-theme .tabulator .tabulator-col-title {
+    font-weight: 600;
+}
+
+/* Animação de carregamento melhorada */
+@keyframes pulse-loading {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.tabulator-loading-container {
+    animation: pulse-loading 1.5s ease-in-out infinite;
+}
+
+/* Melhorar appearência dos tooltips */
+.tabulator-tooltip {
+    background: var(--card-bg, #fff) !important;
+    color: var(--text-color, #333) !important;
+    border: 1px solid var(--cor-borda, #ddd) !important;
+    border-radius: 6px !important;
+    font-size: 0.9rem !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15) !important;
+}
+
+body.dark-theme .tabulator-tooltip {
+    background: #3d2925 !important;
+    color: #f5f5f5 !important;
+    border-color: #4e2d29 !important;
+}
+
+/* Scroll suave nas tabelas */
+.tabulator {
+    scroll-behavior: smooth;
+}
+
+/* Melhorar appearência do seletor de tamanho de página */
+.tabulator-paginator select {
+    background: var(--card-bg, #fff);
+    color: var(--text-color, #333);
+    border: 1px solid var(--cor-borda, #ddd);
+    border-radius: 4px;
+    padding: 0.25rem 0.5rem;
+}
+
+body.dark-theme .tabulator-paginator select {
+    background: #3d2925;
+    color: #f5f5f5;
+    border-color: #4e2d29;
+}
+
+/* Estilos para print/export */
+@media print {
+    .table-toolbar {
+        display: none !important;
+    }
+    
+    .tabulator {
+        border: 1px solid #000 !important;
+    }
+    
+    .tabulator .tabulator-header {
+        background: #f0f0f0 !important;
+        color: #000 !important;
+    }
+    
+    .tabulator .tabulator-row {
+        background: #fff !important;
+        color: #000 !important;
+    }
+}
+
+/* Performance e otimizações */
+.tabulator {
+    will-change: transform;
+    contain: layout style paint;
+}
+
+.tabulator .tabulator-row {
+    contain: layout style;
+}
+
+/* Lazy loading para imagens nas tabelas é feito via HTML attribute */
+
+/* Otimização para animações */
+.tabulator .tabulator-row,
+.tabulator .btn,
+.notification {
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Prevenir reflow desnecessário */
+.tabulator .tabulator-cell {
+    box-sizing: border-box;
+}
+
+/* Cache de fontes para performance */
+.tabulator {
+    font-display: swap;
+}
+
+/* Melhorar rendering de texto */
+.tabulator {
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Responsividade melhorada para tablets */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .tabulator {
+        font-size: 0.9rem;
+    }
+    
+    .table-toolbar {
+        padding: 1rem;
+    }
+    
+    .table-search {
+        width: 300px;
+    }
+    
+    .tabulator .btn {
+        padding: 0.35rem 0.7rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Melhorias para telas ultra-wide */
+@media (min-width: 1920px) {
+    .tabulator {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+    
+    .table-toolbar {
+        max-width: 1800px;
+        margin: 0 auto;
+    }
+}
+
+/* ===== ESTILOS PARA AÇÕES ADMINISTRATIVAS EXPANDIDAS ===== */
+
+/* Container de ações administrativas */
+.tabulator .action-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 35px;
+}
+
+/* Botões administrativos menores para acomodar mais ações */
+.tabulator .action-buttons .btn-sm {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.75rem;
+    min-width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+/* Hover effects para botões administrativos */
+.tabulator .action-buttons .btn-sm:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    z-index: 10;
+    position: relative;
+}
+
+/* Cores específicas para cada tipo de ação */
+.tabulator .action-buttons .btn-primary {
+    background: #007bff;
+    border-color: #007bff;
+}
+
+.tabulator .action-buttons .btn-secondary {
+    background: #6c757d;
+    border-color: #6c757d;
+}
+
+.tabulator .action-buttons .btn-success {
+    background: #28a745;
+    border-color: #28a745;
+}
+
+.tabulator .action-buttons .btn-info {
+    background: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.tabulator .action-buttons .btn-warning {
+    background: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+}
+
+.tabulator .action-buttons .btn-dark {
+    background: #343a40;
+    border-color: #343a40;
+}
+
+.tabulator .action-buttons .btn-danger {
+    background: #dc3545;
+    border-color: #dc3545;
+}
+
+/* Responsividade para ações administrativas */
+@media (max-width: 1200px) {
+    .tabulator .action-buttons {
+        gap: 2px;
+    }
+    
+    .tabulator .action-buttons .btn-sm {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.7rem;
+        min-width: 24px;
+        height: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .tabulator .action-buttons {
+        flex-direction: column;
+        gap: 1px;
+        align-items: stretch;
+    }
+    
+    .tabulator .action-buttons .btn-sm {
+        width: 100%;
+        justify-content: flex-start;
+        padding: 0.3rem 0.5rem;
+        font-size: 0.75rem;
+        height: auto;
+        min-height: 28px;
+    }
+}
+
+/* Dark theme para ações administrativas */
+body.dark-theme .tabulator .action-buttons .btn-sm {
+    border-width: 1px;
+    border-style: solid;
+}
+
+body.dark-theme .tabulator .action-buttons .btn-warning {
+    color: #000;
+}
+
+/* Tooltips aprimorados para ações */
+.tabulator .action-buttons .btn-sm[title] {
+    position: relative;
+}
+
+.tabulator .action-buttons .btn-sm[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.9);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+/* Indicadores visuais para ações críticas */
+.tabulator .action-buttons .btn-danger {
+    position: relative;
+}
+
+.tabulator .action-buttons .btn-danger::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 6px;
+    height: 6px;
+    background: #ff6b6b;
+    border-radius: 50%;
+    animation: pulse-danger 2s infinite;
+}
+
+@keyframes pulse-danger {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.2); }
+}

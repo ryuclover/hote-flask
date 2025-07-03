@@ -1,0 +1,345 @@
+{% extends 'base.html' %}
+
+{% block title %}Contato - {{ site_name }}{% endblock %}
+
+{% block head %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const contactForm = document.querySelector('.contact-form');
+    const submitBtn = contactForm?.querySelector('.btn-large');
+    
+    if (contactForm && submitBtn) {
+        // Enhanced form validation
+        const inputs = contactForm.querySelectorAll('input[required], textarea[required]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                validateField(this);
+            });
+            
+            input.addEventListener('input', function() {
+                if (this.classList.contains('error')) {
+                    validateField(this);
+                }
+            });
+        });
+        
+        function validateField(field) {
+            const isValid = field.checkValidity();
+            field.classList.toggle('error', !isValid);
+            return isValid;
+        }
+        
+        // Form submission with loading state
+        contactForm.addEventListener('submit', function(e) {
+            let isFormValid = true;
+            
+            inputs.forEach(input => {
+                if (!validateField(input)) {
+                    isFormValid = false;
+                }
+            });
+            
+            if (isFormValid) {
+                submitBtn.classList.add('loading');
+                submitBtn.disabled = true;
+                
+                // Re-enable button after 3 seconds in case of network issues
+                setTimeout(() => {
+                    submitBtn.classList.remove('loading');
+                    submitBtn.disabled = false;
+                }, 3000);
+            }
+        });
+        
+        // Phone number formatting
+        const phoneInput = contactForm.querySelector('input[name="phone"]');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function(e) {
+                let value = e.target.value.replace(/\D/g, '');
+                if (value.length >= 10) {
+                    value = value.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+                } else if (value.length >= 6) {
+                    value = value.replace(/(\d{2})(\d{4})/, '($1) $2');
+                } else if (value.length >= 2) {
+                    value = value.replace(/(\d{2})/, '($1) ');
+                }
+                e.target.value = value;
+            });
+        }
+    }
+    
+    // Smooth scroll for internal links
+    const contactLinks = document.querySelectorAll('a[href^="#"]');
+    contactLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+    
+    // WhatsApp link enhancement
+    const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+    whatsappLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Track WhatsApp click for analytics (if needed)
+            console.log('WhatsApp contact initiated');
+        });
+    });
+});
+</script>
+
+<style>
+/* Contact page specific styles */
+.contact-form input.error,
+.contact-form textarea.error {
+    border-color: #ef4444 !important;
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.contact-form input.error:focus,
+.contact-form textarea.error:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+/* Success state for valid fields */
+.contact-form input:valid:not(:placeholder-shown),
+.contact-form textarea:valid:not(:placeholder-shown) {
+    border-color: #10b981;
+}
+
+.contact-form input:valid:focus,
+.contact-form textarea:valid:focus {
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+}
+
+/* Enhanced accessibility */
+.contact-method-content a:focus,
+.social-link:focus {
+    outline: 2px solid var(--cor-primaria);
+    outline-offset: 2px;
+    border-radius: var(--radius);
+}
+
+/* Loading button animation */
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.btn-large.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Contact Hero Section -->
+<section class="contact-hero">
+    <div class="container">
+        <div class="contact-hero-content">
+            <h1>Vamos Criar Algo Incrível Juntos</h1>
+            <p class="contact-hero-subtitle">Sua experiência excepcional começa com uma conversa. Entre em contato conosco e transforme sua visão em realidade.</p>
+            <div class="contact-hero-features">
+                <div class="hero-feature">
+                    <i class="fas fa-clock"></i>
+                    <span>Resposta em até 2 horas</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-star"></i>
+                    <span>Atendimento personalizado</span>
+                </div>
+                <div class="hero-feature">
+                    <i class="fas fa-handshake"></i>
+                    <span>Consultoria gratuita</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Content -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-grid">
+            <!-- Contact Form -->
+            <div class="contact-form-container">
+                <div class="contact-form-header">
+                    <h2>Fale Conosco</h2>
+                    <p>Preencha o formulário abaixo e nossa equipe entrará em contato com você rapidamente para discutir todos os detalhes do seu evento.</p>
+                </div>
+                
+                <form action="{{ url_for('contact') }}" method="POST" class="contact-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Nome Completo *</label>
+                            <input type="text" id="name" name="name" required placeholder="Seu nome completo">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Telefone</label>
+                            <input type="tel" id="phone" name="phone" placeholder="(11) 99999-9999">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event_type">Tipo de Evento</label>
+                            <select id="event_type" name="event_type">
+                                <option value="">Selecione o tipo de evento</option>
+                                <option value="casamento">Casamento</option>
+                                <option value="formatura">Formatura</option>
+                                <option value="aniversario">Aniversário</option>
+                                <option value="corporativo">Evento Corporativo</option>
+                                <option value="festa_infantil">Festa Infantil</option>
+                                <option value="outros">Outros</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="message">Mensagem *</label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Conte-nos sobre seu evento: data, local, número de convidados, estilo desejado e qualquer detalhe especial que você gostaria de incluir..."></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-paper-plane"></i>
+                            Enviar Mensagem
+                        </button>
+                        <p class="form-disclaimer">Ao enviar, você concorda que entraremos em contato sobre seu evento.</p>
+                    </div>
+                </form>
+            </div>
+            
+            <!-- Contact Info -->
+            <div class="contact-info-container">
+                <div class="contact-info-card">
+                    <h3>Informações de Contato</h3>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="contact-method-content">
+                                <h4>Nosso Escritório</h4>
+                                <p>Rua dos Eventos, 123<br>Jardim Paulista, São Paulo - SP<br>CEP: 01234-567</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-method-content">
+                                <h4>Telefone & WhatsApp</h4>
+                                <p><a href="tel:+5511999999999">(11) 99999-9999</a></p>
+                                <p class="contact-hours">Seg-Sex: 9h às 18h | Sáb: 9h às 14h</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-method">
+                            <div class="contact-method-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-method-content">
+                                <h4>Email</h4>
+                                <p><a href="mailto:contato@nomedosite.com">contato@nomedosite.com</a></p>
+                                <p class="contact-hours">Respondemos em até 2 horas</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-social">
+                        <h4>Siga-nos nas Redes Sociais</h4>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fab fa-instagram"></i>
+                                <span>@nomedosite</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fab fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Why Contact Us -->
+                <div class="contact-benefits">
+                    <h3>Por que nos escolher?</h3>
+                    <div class="benefit-list">
+                        <div class="benefit-item">
+                            <i class="fas fa-award"></i>
+                            <div>
+                                <h4>Experiência Comprovada</h4>
+                                <p>Mais de 500 eventos realizados com excelência</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <h4>Equipe Especializada</h4>
+                                <p>Profissionais qualificados em cada área</p>
+                            </div>
+                        </div>
+                        <div class="benefit-item">
+                            <i class="fas fa-heart"></i>
+                            <div>
+                                <h4>Atendimento Humanizado</h4>
+                                <p>Cuidamos de cada detalhe com carinho</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact CTA -->
+<section class="contact-cta">
+    <div class="container">
+        <div class="contact-cta-content">
+            <h2>Pronto para Começar?</h2>
+            <p>Não deixe seu evento para depois. Entre em contato hoje mesmo e garante que seu dia especial seja inesquecível!</p>
+            <div class="contact-cta-buttons">
+                <a href="tel:+5511999999999" class="btn btn-secondary">
+                    <i class="fas fa-phone"></i>
+                    Ligar Agora
+                </a>
+                <a href="https://wa.me/5511999999999" class="btn btn-primary" target="_blank">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

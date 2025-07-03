@@ -1,0 +1,164 @@
+/* ===================================================
+   BASE.CSS - ESTILOS FUNDAMENTAIS
+   Reset, tipografia, botões e componentes básicos
+=================================================== */
+
+/* Reset e Base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--body-bg);
+    color: var(--cor-texto);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+main {
+    flex: 1;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    color: var(--cor-texto);
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    margin-bottom: 1rem;
+    color: var(--cor-texto);
+}
+
+/* Links */
+a {
+    color: var(--cor-secundaria);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--cor-hover);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius);
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-family: var(--font-family);
+    line-height: 1;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--cor-primaria);
+    color: var(--cor-claro);
+    border: 2px solid var(--cor-primaria);
+}
+
+.btn-primary:hover {
+    background-color: var(--cor-hover);
+    border-color: var(--cor-hover);
+    color: var(--cor-claro);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(140, 47, 38, 0.3);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--cor-primaria);
+    border: 2px solid var(--cor-primaria);
+}
+
+.btn-outline:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-claro);
+    transform: translateY(-1px);
+}
+
+.btn-hero {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+}
+
+.btn-cta {
+    background: linear-gradient(135deg, var(--cor-primaria) 0%, var(--cor-secundaria) 100%);
+    color: var(--cor-claro);
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: var(--radius-full);
+    box-shadow: 0 4px 15px rgba(140, 47, 38, 0.2);
+    transition: var(--transition);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(140, 47, 38, 0.3);
+    color: var(--cor-claro);
+}
+
+.btn-large {
+    padding: 1.25rem 2.5rem;
+    font-size: 1.2rem;
+}
+
+.btn-sm {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+    width: 100%;
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .btn-outline {
+    color: var(--cor-primaria);
+    border-color: var(--cor-primaria);
+}
+
+body.dark-theme .btn-outline:hover {
+    background-color: var(--cor-primaria);
+    color: var(--cor-claro);
+}

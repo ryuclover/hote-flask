@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - {{ site_name }}{% endblock %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>Bem-vindo, {{ user.first_name }}!</h1>
+            <p>Aqui está um resumo das suas atividades.</p>
+        </div>
+
+        <!-- Criar Novo Evento Button - Moved to Top -->
+        <div class="dashboard-actions-top">
+            <a href="{{ url_for('create_event') }}" class="btn btn-primary create-event-btn">
+                <i class="fas fa-plus"></i> Criar Novo Evento
+            </a>
+        </div>
+
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Eventos Criados</h3>
+                    <p class="stat-value">{{ created_events|length }}</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3>Eventos Participados</h3>
+                    <p class="stat-value">{{ participating_events|length }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Seus Eventos Criados</h2>
+            {% if created_events %}
+                <div id="created-events-table"></div>
+                <!-- Tabela de fallback -->
+                <noscript>
+                    <div class="table-responsive">
+                        <table class="admin-table table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Tipo</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Local</th>
+                                    <th scope="col">Participantes</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Ações</th>
+                                </tr>
+                            </thead>
+                        <tbody>
+                            {% for event in created_events %}
+                            <tr>
+                                <td>
+                                    <strong>{{ event.title }}</strong>
+                                    {% if event.price and event.price > 0 %}
+                                        <br><small style="color: var(--cor-primaria);">R$ {{ "%.2f"|format(event.price) }}</small>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if event.event_type == 'aniversario' %}🎂 Aniversário
+                                    {% elif event.event_type == 'casamento' %}💒 Casamento
+                                    {% elif event.event_type == 'corporativo' %}💼 Corporativo
+                                    {% elif event.event_type == 'formatura' %}🎓 Formatura
+                                    {% elif event.event_type == 'workshop' %}📚 Workshop
+                                    {% elif event.event_type == 'festa' %}🎉 Festa
+                                    {% elif event.event_type == 'reuniao' %}👥 Reunião
+                                    {% elif event.event_type == 'conferencia' %}🎤 Conferência
+                                    {% elif event.event_type == 'esportivo' %}⚽ Esportivo
+                                    {% elif event.event_type == 'cultural' %}🎭 Cultural
+                                    {% elif event.event_type == 'religioso' %}⛪ Religioso
+                                    {% elif event.event_type == 'beneficente' %}💝 Beneficente
+                                    {% else %}📋 Outro
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {{ event.date.strftime('%d/%m/%Y %H:%M') }}
+                                    {% if event.end_date %}
+                                        <br><small>até {{ event.end_date.strftime('%d/%m/%Y %H:%M') }}</small>
+                                    {% endif %}
+                                </td>
+                                <td>{{ event.location }}</td>
+                                <td>
+                                    {{ event.participations|length }}
+                                    {% if event.capacity %}
+                                        / {{ event.capacity }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if event.is_public %}
+                                        <span style="color: green;">🌐 Público</span>
+                                    {% else %}
+                                        <span style="color: orange;">🔒 Privado</span>
+                                    {% endif %}
+                                    {% if event.requires_approval %}
+                                        <br><small>✋ Aprovação necessária</small>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a href="{{ url_for('edit_event', event_id=event.id) }}" class="btn btn-sm btn-secondary" title="Editar Evento">
+                                            ✏️
+                                        </a>
+                                        <a href="{{ url_for('view_guest_messages', event_id=event.id) }}" class="btn btn-sm btn-info" title="Ver Mensagens dos Convidados">
+                                            💬
+                                        </a>
+                                        <a href="{{ url_for('guest_area', invite_code=event.invite_code) }}" class="btn btn-sm btn-success" title="Área do Convidado" target="_blank">
+                                            👥
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    </div>
+                </noscript>
+                
+                <!-- Dados JSON para o Tabulator -->
+                <script type="application/json" id="created-events-data">
+                [
+                    {% for event in created_events %}
+                    {
+                        "id": {{ event.id }},
+                        "title": "{{ event.title|replace('"', '\\"') }}",
+                        "event_type": "{{ event.event_type }}",
+                        "date": "{{ event.date.strftime('%d/%m/%Y %H:%M') }}",
+                        "end_date": "{% if event.end_date %}{{ event.end_date.strftime('%d/%m/%Y %H:%M') }}{% endif %}",
+                        "location": "{{ event.location|replace('"', '\\"') }}",
+                        "participants": {{ event.participations|length }},
+                        "capacity": {% if event.capacity %}{{ event.capacity }}{% else %}null{% endif %},
+                        "is_public": {{ event.is_public|lower }},
+                        "requires_approval": {{ event.requires_approval|lower }},
+                        "invite_code": "{{ event.invite_code }}",
+                        "price": {% if event.price %}{{ event.price }}{% else %}0{% endif %}
+                    }{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                ]
+                </script>
+            {% else %}
+                <p class="empty-message">Você ainda não criou nenhum evento.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-section">
+            <h2>Eventos que Você Participa</h2>
+            {% if participating_events %}
+                <div id="participating-events-table"></div>
+                <!-- Tabela de fallback -->
+                <noscript>
+                    <div class="table-responsive">
+                        <table class="admin-table table table-striped table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th scope="col">Título</th>
+                                    <th scope="col">Data</th>
+                                    <th scope="col">Local</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for event in participating_events %}
+                                <tr>
+                                    <td>{{ event.title }}</td>
+                                    <td>{{ event.date.strftime('%d/%m/%Y %H:%M') }}</td>
+                                    <td>{{ event.location }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </noscript>
+                
+                <!-- Dados JSON para o Tabulator -->
+                <script type="application/json" id="participating-events-data">
+                [
+                    {% for event in participating_events %}
+                    {
+                        "title": "{{ event.title|replace('"', '\\"') }}",
+                        "date": "{{ event.date.strftime('%d/%m/%Y %H:%M') }}",
+                        "location": "{{ event.location|replace('"', '\\"') }}"
+                    }{% if not loop.last %},{% endif %}
+                    {% endfor %}
+                ]
+                </script>
+            {% else %}
+                <p class="empty-message">Você ainda não participa de nenhum evento.</p>
+            {% endif %}
+        </div>
+
+        <div class="dashboard-invite-section">
+            <form action="{{ url_for('join_event') }}" method="POST" class="invite-form">
+                <label for="invite_code" class="invite-label">Insira o código de convite:</label>
+                <div class="invite-input-group">
+                    <input type="text" id="invite_code" name="code" placeholder="Digite o código de convite" required class="invite-input">
+                    <button type="submit" class="btn btn-primary">Participar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endblock %}

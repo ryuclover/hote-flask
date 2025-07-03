@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ site_name }} - Realize seu evento dos sonhos{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h1>Realize <span class="highlight-text">seu evento dos sonhos</span></h1>
+        <p class="hero-subtitle">Planejamento, organização e execução de eventos com excelência e personalização. Transformamos suas ideias em experiências inesquecíveis.</p>
+        <div class="hero-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('create_event') }}" class="btn btn-primary btn-hero">
+                    <i class="fas fa-plus"></i> Criar Meu Evento Agora
+                </a>
+                <a href="{{ url_for('services') }}" class="btn btn-outline btn-hero">
+                    <i class="fas fa-star"></i> Ver Nossos Serviços
+                </a>
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn btn-primary btn-hero">
+                    <i class="fas fa-rocket"></i> Começar Agora - Grátis
+                </a>
+                <a href="#services-section" class="btn btn-outline btn-hero scroll-to-services">
+                    <i class="fas fa-eye"></i> Ver Nossos Serviços
+                </a>
+            {% endif %}
+        </div>
+    </div>
+    <div class="hero-image">
+        <img src="{{ url_for('static', filename='img/hero-image.svg') }}" alt="Ilustração de evento">
+    </div>
+</section>
+
+<section class="about-preview" id="services-section">
+    <div class="about-header">
+        <h2>Nossos Serviços</h2>
+        <p>Oferecemos soluções completas para tornar seu evento especial e inesquecível</p>
+    </div>
+    
+    <div class="services-detailed-grid">
+        <!-- Festas de Aniversário -->
+        <div class="service-detailed-card" onclick="handleServiceClick('aniversario')" data-service="aniversario">
+            <div class="service-icon">
+                <i class="fas fa-birthday-cake"></i>
+            </div>
+            <h3>Festas de Aniversário</h3>
+            <p>Planejamento completo para festas de aniversário inesquecíveis, desde a decoração até o entretenimento.</p>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Decoração temática</li>
+                <li><i class="fas fa-check"></i> Buffet personalizado</li>
+                <li><i class="fas fa-check"></i> Animação e entretenimento</li>
+                <li><i class="fas fa-check"></i> Fotografia profissional</li>
+            </ul>
+            <div class="service-action-hint">
+                {% if current_user.is_authenticated %}
+                    <small>👆 Clique para criar seu evento de aniversário</small>
+                {% else %}
+                    <small>👆 Clique para se cadastrar e criar seu evento</small>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Casamentos -->
+        <div class="service-detailed-card" onclick="handleServiceClick('casamento')" data-service="casamento">
+            <div class="service-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Casamentos</h3>
+            <p>Transformamos seu dia especial em um momento mágico e inesquecível para você e seus convidados.</p>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Cerimônia e recepção</li>
+                <li><i class="fas fa-check"></i> Decoração floral</li>
+                <li><i class="fas fa-check"></i> Música e DJ</li>
+                <li><i class="fas fa-check"></i> Coordenação do evento</li>
+            </ul>
+            <div class="service-action-hint">
+                {% if current_user.is_authenticated %}
+                    <small>👆 Clique para criar seu casamento dos sonhos</small>
+                {% else %}
+                    <small>👆 Clique para se cadastrar e planejar seu casamento</small>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Eventos Corporativos -->
+        <div class="service-detailed-card" onclick="handleServiceClick('corporativo')" data-service="corporativo">
+            <div class="service-icon">
+                <i class="fas fa-briefcase"></i>
+            </div>
+            <h3>Eventos Corporativos</h3>
+            <p>Organizamos eventos empresariais profissionais que fortalecem sua marca e engajam sua equipe.</p>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Conferências e seminários</li>
+                <li><i class="fas fa-check"></i> Team building</li>
+                <li><i class="fas fa-check"></i> Lançamentos de produtos</li>
+                <li><i class="fas fa-check"></i> Networking events</li>
+            </ul>
+            <div class="service-action-hint">
+                {% if current_user.is_authenticated %}
+                    <small>👆 Clique para criar seu evento corporativo</small>
+                {% else %}
+                    <small>👆 Clique para se cadastrar e organizar eventos corporativos</small>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Formaturas -->
+        <div class="service-detailed-card" onclick="handleServiceClick('formatura')" data-service="formatura">
+            <div class="service-icon">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+            <h3>Formaturas</h3>
+            <p>Celebre suas conquistas acadêmicas com uma festa de formatura memorável e elegante.</p>
+            <ul class="service-features">
+                <li><i class="fas fa-check"></i> Cerimônia de colação</li>
+                <li><i class="fas fa-check"></i> Festa de confraternização</li>
+                <li><i class="fas fa-check"></i> Decoração temática</li>
+                <li><i class="fas fa-check"></i> Registro fotográfico</li>
+            </ul>
+            <div class="service-action-hint">
+                {% if current_user.is_authenticated %}
+                    <small>👆 Clique para planejar sua formatura</small>
+                {% else %}
+                    <small>👆 Clique para se cadastrar e celebrar sua formatura</small>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="services-cta">
+        <div class="cta-content">
+            <h3>Pronto para criar seu evento dos sonhos?</h3>
+            <p>
+                {% if current_user.is_authenticated %}
+                    Comece agora mesmo a planejar seu evento personalizado! Nossa plataforma facilita todo o processo.
+                {% else %}
+                    Junte-se a mais de 1.000 pessoas que já realizaram eventos incríveis conosco. Cadastre-se gratuitamente!
+                {% endif %}
+            </p>
+            <div class="cta-buttons">
+                {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('create_event') }}" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Criar Meu Evento Agora
+                    </a>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-outline">
+                        <i class="fas fa-tachometer-alt"></i> Ver Meu Dashboard
+                    </a>
+                {% else %}
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">
+                        <i class="fas fa-rocket"></i> Cadastrar Grátis Agora
+                    </a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline">
+                        <i class="fas fa-sign-in-alt"></i> Já Tenho Conta
+                    </a>
+                {% endif %}
+            </div>
+            <div style="margin-top: 1.5rem; font-size: 0.875rem; opacity: 0.9;">
+                ✅ Cadastro gratuito • ✅ Sem compromisso • ✅ Comece em 2 minutos
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <h2>Por que escolher nossos serviços?</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-calendar-check"></i>
+            </div>
+            <h3>Planejamento Completo</h3>
+            <p>Cuidamos de todos os detalhes do seu evento, desde a concepção até a execução.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3>Equipe Especializada</h3>
+            <p>Profissionais experientes e dedicados para garantir o sucesso do seu evento.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-star"></i>
+            </div>
+            <h3>Personalização</h3>
+            <p>Cada evento é único e personalizado de acordo com suas preferências e necessidades.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+            <h3>Momentos Inesquecíveis</h3>
+            <p>Criamos experiências memoráveis que ficarão para sempre na lembrança.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="cta-content">
+        <h2>Pronto para realizar seu evento?</h2>
+        <p>
+            {% if current_user.is_authenticated %}
+                Acesse seu dashboard para gerenciar seus eventos ou crie um novo agora mesmo!
+            {% else %}
+                Cadastre-se agora e comece a planejar o evento dos seus sonhos com nossa plataforma completa!
+            {% endif %}
+        </p>
+        {% if current_user.is_authenticated %}
+            <a href="{{ url_for('create_event') }}" class="btn btn-primary">Criar Novo Evento</a>
+        {% else %}
+            <a href="{{ url_for('register') }}" class="btn btn-primary">Começar agora</a>
+        {% endif %}
+    </div>
+</section>
+
+<script type="application/json" id="user-data">
+{
+    "isAuthenticated": {% if current_user.is_authenticated %}true{% else %}false{% endif %},
+    "createEventUrl": "{{ url_for('create_event') }}",
+    "registerUrl": "{{ url_for('register') }}"
+}
+</script>
+
+<script>
+// Service Click Handler for Conversion
+function handleServiceClick(serviceType) {
+    const userData = JSON.parse(document.getElementById('user-data').textContent);
+    const isLoggedIn = userData.isAuthenticated;
+    
+    if (isLoggedIn) {
+        // User is logged in - redirect to create event with pre-selected type
+        const params = new URLSearchParams({ type: serviceType });
+        window.location.href = `${userData.createEventUrl}?${params.toString()}`;
+    } else {
+        // User is not logged in - redirect to register with service context
+        const serviceParams = new URLSearchParams({ 
+            service: serviceType,
+            ref: 'homepage_service'
+        });
+        window.location.href = `${userData.registerUrl}?${serviceParams.toString()}`;
+    }
+}
+
+// Smooth scroll for service links
+document.querySelectorAll('.scroll-to-services').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('services-section').scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    });
+});
+
+// Add visual feedback for service cards
+document.querySelectorAll('.service-detailed-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-8px) scale(1.02)';
+    });
+    
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+    
+    // Add click animation
+    card.addEventListener('click', function() {
+        this.style.transform = 'translateY(-8px) scale(0.98)';
+        setTimeout(() => {
+            this.style.transform = 'translateY(-8px) scale(1.02)';
+        }, 150);
+    });
+});
+</script>
+{% endblock %}

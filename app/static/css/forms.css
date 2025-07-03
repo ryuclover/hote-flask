@@ -1,0 +1,245 @@
+/* ===================================================
+   FORMS.CSS - ESTILOS DE FORMULÁRIOS
+   Estilos para todos os formulários da aplicação
+=================================================== */
+
+/* Form Container */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: var(--card-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    border: 1px solid var(--border-color);
+}
+
+/* Form Groups */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+/* Labels */
+label {
+    font-weight: 600;
+    color: var(--cor-texto);
+    font-size: 0.95rem;
+    margin-bottom: 0.25rem;
+}
+
+.required::after {
+    content: " *";
+    color: var(--danger-color);
+}
+
+/* Input Fields */
+input, 
+textarea, 
+select {
+    width: 100%;
+    padding: 0.875rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius);
+    background-color: var(--input-bg);
+    color: var(--cor-texto);
+    font-size: 1rem;
+    font-family: var(--font-family);
+    transition: var(--transition);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 120px;
+    line-height: 1.5;
+}
+
+select {
+    cursor: pointer;
+}
+
+/* Input States */
+input:focus, 
+textarea:focus, 
+select:focus {
+    outline: none;
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(140, 47, 38, 0.1);
+}
+
+input:invalid,
+textarea:invalid {
+    border-color: var(--danger-color);
+}
+
+input:disabled,
+textarea:disabled,
+select:disabled {
+    background-color: var(--cor-fundo-alternativo);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+    color: var(--cor-placeholder);
+    opacity: 0.7;
+}
+
+/* Input Variants */
+.input-compact {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+}
+
+.input-large {
+    padding: 1rem 1.25rem;
+    font-size: 1.1rem;
+}
+
+/* Checkbox and Radio */
+input[type="checkbox"],
+input[type="radio"] {
+    width: auto;
+    margin-right: 0.5rem;
+    transform: scale(1.2);
+}
+
+.checkbox-group,
+.radio-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+/* Form Actions */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.form-actions.left {
+    justify-content: flex-start;
+}
+
+.form-actions.right {
+    justify-content: flex-end;
+}
+
+.form-actions.between {
+    justify-content: space-between;
+}
+
+/* Error and Success Messages */
+.form-message {
+    padding: 0.875rem;
+    border-radius: var(--radius);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.form-message.error {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: var(--danger-color);
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.form-message.success {
+    background-color: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.form-message.info {
+    background-color: rgba(140, 47, 38, 0.1);
+    color: var(--cor-primaria);
+    border: 1px solid rgba(140, 47, 38, 0.3);
+}
+
+/* Field Error States */
+.field-error {
+    border-color: var(--danger-color) !important;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1) !important;
+}
+
+.error-message {
+    color: var(--danger-color);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+
+/* Dark Mode Overrides */
+body.dark-theme .form-container {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+}
+
+body.dark-theme input,
+body.dark-theme textarea,
+body.dark-theme select {
+    background-color: var(--input-bg);
+    color: var(--cor-texto);
+    border-color: var(--input-border);
+}
+
+body.dark-theme input:focus,
+body.dark-theme textarea:focus,
+body.dark-theme select:focus {
+    border-color: var(--input-focus);
+    box-shadow: 0 0 0 3px rgba(242, 178, 163, 0.2);
+}
+
+body.dark-theme input::placeholder,
+body.dark-theme textarea::placeholder {
+    color: var(--cor-placeholder);
+}
+
+body.dark-theme input:disabled,
+body.dark-theme textarea:disabled,
+body.dark-theme select:disabled {
+    background-color: var(--cor-fundo);
+    color: var(--text-muted);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .form-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    input, 
+    textarea, 
+    select {
+        padding: 0.75rem;
+    }
+}

@@ -1,0 +1,109 @@
+/* ===================================================
+   VARIABLES.CSS - VARIÁVEIS GLOBAIS E TEMAS
+   Contém todas as variáveis CSS e definições de tema
+=================================================== */
+
+/* Light theme (default) */
+:root {
+    /* Core Colors */
+    --cor-primaria: #8c2f26;
+    --cor-secundaria: #c14c3c;
+    --cor-hover: #a53d32;
+    --cor-texto: #2d1c1a;
+    --cor-texto-secundario: #6c757d;
+    --cor-claro: #ffffff;
+    --cor-escuro: #1a0e0d;
+    --cor-card: #ffffff;
+    --cor-borda: #e6d8d2;
+    --cor-fundo: #f4efe8;
+    --cor-fundo-alternativo: #f9f5f1;
+    --cor-input: #ffffff;
+    --cor-placeholder: #9ca3af;
+    
+    /* Typography */
+    --font-family: 'Segoe UI', sans-serif;
+    
+    /* Spacing & Layout */
+    --radius: 0.375rem;
+    --radius-lg: 0.75rem;
+    --radius-full: 9999px;
+    --transition: all 0.3s ease;
+    
+    /* Semantic Colors */
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    
+    /* Component Variables */
+    --text-muted: #6c757d;
+    --input-focus: #8c2f26;
+    --input-border: #c14c3c;
+    --input-bg: #ffffff;
+    --shadow-card: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    
+    /* Alias Variables for Compatibility */
+    --body-bg: var(--cor-fundo);
+    --card-bg: var(--cor-card);
+    --border-color: var(--cor-borda);
+    --primary-color: var(--cor-primaria);
+    --primary-hover: var(--cor-hover);
+    --secondary-color: var(--cor-secundaria);
+    --light-color: var(--cor-claro);
+    --dark-color: var(--cor-escuro);
+    --darker-color: #2a1a18;
+    
+    /* Profile specific */
+    --profile-bg: #fff7f4;
+    --profile-card-shadow: 0 2px 12px 0 rgba(140,47,38,0.07);
+    --profile-tab-bg: #f9f3ef;
+    --profile-tab-active: #fff;
+    --profile-tab-border: #e6d8d2;
+    --profile-avatar-bg: var(--cor-primaria);
+    --profile-avatar-color: #fff;
+    --profile-info-muted: #a18c85;
+    --profile-section-gap: 2.5rem;
+    --profile-form-gap: 1.25rem;
+}
+
+/* Dark theme overrides */
+body.dark-theme {
+    --cor-fundo: #2a1816;
+    --cor-fundo-alternativo: #352521;
+    --cor-card: #3a2321;
+    --cor-borda: #4e2d29;
+    --cor-input: #4a2a26;
+    --cor-texto: #fdf8f3;
+    --cor-texto-secundario: #c4a9a4;
+    --cor-placeholder: #c4a9a4;
+    --cor-primaria: #f2b2a3;
+    --cor-secundaria: #e86c59;
+    --cor-hover: #f58d79;
+    --cor-claro: #fdf8f3;
+    --cor-escuro: #1a0e0d;
+    --input-focus: #f2b2a3;
+    --input-border: #4e2d29;
+    --input-bg: #4a2a26;
+    --body-bg: var(--cor-fundo);
+    --card-bg: var(--cor-card);
+    --border-color: var(--cor-borda);
+    --primary-color: var(--cor-primaria);
+    --primary-hover: var(--cor-hover);
+    --secondary-color: var(--cor-secundaria);
+    --light-color: var(--cor-claro);
+    --dark-color: var(--cor-escuro);
+    --darker-color: #1a0e0d;
+    --text-muted: var(--cor-texto-secundario);
+    
+    /* Profile dark theme */
+    --profile-bg: #2a1816;
+    --profile-card-shadow: 0 2px 12px 0 rgba(0,0,0,0.3);
+    --profile-tab-bg: #352521;
+    --profile-tab-active: #3a2321;
+    --profile-tab-border: #4e2d29;
+    --profile-avatar-bg: var(--cor-secundaria);
+    --profile-avatar-color: #fff;
+    --profile-info-muted: #a18c85;
+}
